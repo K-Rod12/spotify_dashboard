@@ -1,16 +1,6 @@
 import useAuth from "./Auth";
 import "./App.css";
 
-interface Profile {
-  displayName: string;
-  avatarUrl: string;
-  id: string;
-  email: string;
-  uri: string;
-  url: string;
-  imgUrl: string;
-}
-let count = 0;
 function App() {
   const { profile, isLoggedIn, login, logout } = useAuth();
   console.log("App: ", profile, isLoggedIn);

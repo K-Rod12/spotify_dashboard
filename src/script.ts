@@ -1,7 +1,5 @@
-const clientId = "d4f12580a11e4c50ab6e180ebce9e33e"; // Replace with your client id
-const params = new URLSearchParams(window.location.search);
-const code = params.get("code");
-
+ import config from './config/config';
+ // Replace with your client id
 async function redirectToAuthCodeFlow() {
   const verifier = generateCodeVerifier(128);
   const challenge = await generateCodeChallenge(verifier);
@@ -9,7 +7,7 @@ async function redirectToAuthCodeFlow() {
   localStorage.setItem("verifier", verifier);
 
   const params = new URLSearchParams();
-  params.append("client_id", clientId);
+  params.append("client_id", config.clientId);
   params.append("response_type", "code");
   params.append("redirect_uri", "http://localhost:3000/callback");
   params.append("scope", "user-read-private user-read-email");
@@ -38,9 +36,7 @@ async function getAccessToken(clientId: string, code: string): Promise<string> {
   return access_token;
 }
 
-async function fetchProfile(token: string, count: number): Promise<any> {
-  console.log('Fetch Count:', count);
-  
+async function fetchProfile(token: string): Promise<any> {
   const response = await fetch("https://api.spotify.com/v1/me", {
       method: "GET", headers: { Authorization: `Bearer ${token}` }
   });

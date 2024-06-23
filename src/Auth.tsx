@@ -19,7 +19,6 @@ const useAuth = (): {
   logout: () => void;
 } => {
   const [profile, setProfile] = useState<Profile | null>(null);
-  let count = 0;
   useEffect(() => {
     // Check if the user profile and access token exist in localStorage
     const storedProfile = localStorage.getItem("spotifyProfile");
@@ -37,7 +36,7 @@ const useAuth = (): {
             console.log("client id: ", config.clientId);
 
             const accessToken = await getAccessToken(config.clientId, code);
-            const profileData = await fetchProfile(accessToken, count);
+            const profileData = await fetchProfile(accessToken);
             setProfile(profileData);
 
             // Save the access token and profile to localStorage
