@@ -3,7 +3,6 @@ import useAuth from "../utils/Auth";
 import "../index.css"; // or './App.css' depending on your file name
 import Profile from "./Profile";
 import Login from "./Login";
-import Sidebar from "./Sidebar";
 import Navbar from "./Navbar/Navbar";
 function App() {
   const { profileData, isLoggedIn, login, logout } = useAuth();

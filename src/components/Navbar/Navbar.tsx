@@ -12,7 +12,6 @@ interface NavbarProps {
 
 const Navbar = (props: NavbarProps) => {
   const [activeSection, setActiveSection] = useState<SectionId>("Profile");
-  const [timeOfLastClick, setTimeOfLastClick] = useState(0); // we need to keep track of this to disable the observer temporarily when user clicks on a link
 
   return (
     <>
@@ -38,7 +37,6 @@ const Navbar = (props: NavbarProps) => {
             >
               <button
                 onClick={() => {
-                  setTimeOfLastClick(Date.now());
                   setActiveSection(link.id);
 
                   if (link.heading === "Logout") {
