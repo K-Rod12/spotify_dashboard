@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { redirectToAuthCodeFlow, getAccessToken, fetchProfile } from "./script";
-import config  from "./config/config";
+import config  from "../config/config";
 
 interface Profile {
   displayName: string;
@@ -13,7 +13,7 @@ interface Profile {
 }
 
 const useAuth = (): {
-  profile: Profile | null;
+  profileData: Profile | null;
   isLoggedIn: boolean;
   login: () => void;
   logout: () => void;
@@ -51,6 +51,8 @@ const useAuth = (): {
   }, []);
 
   const login = () => {
+    console.log('logging in');
+    
     redirectToAuthCodeFlow();
   };
 
@@ -63,7 +65,7 @@ const useAuth = (): {
   };
 
   return {
-    profile,
+    profileData: profile,
     isLoggedIn: !!profile,
     login,
     logout,

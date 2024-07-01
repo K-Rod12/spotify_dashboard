@@ -1,4 +1,4 @@
- import config from './config/config';
+ import config from '../config/config';
  // Replace with your client id
 async function redirectToAuthCodeFlow() {
   const verifier = generateCodeVerifier(128);
@@ -10,7 +10,7 @@ async function redirectToAuthCodeFlow() {
   params.append("client_id", config.clientId);
   params.append("response_type", "code");
   params.append("redirect_uri", "http://localhost:3000/callback");
-  params.append("scope", "user-read-private user-read-email");
+  params.append("scope", "user-read-private user-read-email user-top-read playlist-modify-public user-modify-playback-state user-read-playback-state user-follow-read user-read-recently-played");
   params.append("code_challenge_method", "S256");
   params.append("code_challenge", challenge);
 
