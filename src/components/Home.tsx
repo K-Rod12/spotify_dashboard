@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useAuth from "../utils/Auth";
-import "../index.css"; // or './App.css' depending on your file name
+import "../index.css";
 import Profile from "./Profile";
 import Login from "./Login";
 import Navbar from "./Navbar/Navbar";
@@ -28,20 +28,12 @@ function App() {
 
   return (
     <>
-      {isLoggedIn ? (
-        <>
-          <div className="flex min-h-screen bg-black text-white">
-
-
-            <SpotifyLogo className="fixed top-5 left-5"/>
-            <Navbar setCurrentPage={setCurrentPage} logout={logout} />
-            {/* Main content */}
-            <div className="flex-1 p-10 overflow-auto mt-5">{renderPage()}</div>
-          </div>
-        </>
-      ) : (
-        <Login profile={profileData} login={login} />
-      )}
+      <div className="flex min-h-screen bg-black text-white">
+        <SpotifyLogo className="fixed top-5 left-5" />
+        <Navbar setCurrentPage={setCurrentPage} logout={logout} />
+        {/* Main content */}
+        <div className="flex-1 p-10 overflow-auto mt-5">{renderPage()}</div>
+      </div>
     </>
   );
 }

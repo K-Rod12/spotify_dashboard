@@ -15,13 +15,12 @@ const Profile = ({
   profile: any;
   onLogout: () => void;
 }) => {
-  // const [tracks, setTracks] = useState([]);
-
   const [artists, setArtists] = useState<any[]>([]);
   const [tracks, setTracks] = useState<any[]>([]);
   const [user, setUser] = useState<any>({});
   const [following, setFollowing] = useState<any>({});
   const [recentlyPlayed, setRecentlyPlayed] = useState<any[]>([]);
+
   // This data would normally come from the Spotify API
   const profileData = {
     name: "Jane Doe",
@@ -83,7 +82,7 @@ const Profile = ({
   }
 
   return (
-    <div className="bg-black text-white p-8">
+    <div className="bg-black text-white p-1 pt-8">
       <div className="max-w-4xl mx-auto">
         <header className="flex justify-center items-center mb-8">
           <img
@@ -103,14 +102,14 @@ const Profile = ({
           </div>
         </header>
 
-        <main className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <section className="bg-gray-900 p-6 rounded-lg">
-            <h2 className="text-2xl font-bold mb-4 flex items-center">
-              <Music className="mr-2 text-green-500" /> Top Artists
+        <main className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <section className="bg-spotify-grey p-6 rounded-lg">
+            <h2 className="md:text-2xl text-lg font-bold mb-4 flex items-center">
+              <Music className="mr-2 text-spotify-green" /> Top Artists
             </h2>
             <ul>
               {artists.slice(0, 3).map((artist, index) => (
-                <li key={index} className="mb-2 flex items-center">
+                <li key={index} className="pt-3 flex items-center">
                   <img
                     src={artist.images[2].url}
                     alt={profile.displayName}
@@ -122,13 +121,13 @@ const Profile = ({
             </ul>
           </section>
 
-          <section className="bg-gray-900 p-6 rounded-lg">
-            <h2 className="text-2xl font-bold mb-4 flex items-center">
-              <Disc className="mr-2 text-green-500" /> Top Tracks
+          <section className="bg-spotify-grey p-6 rounded-lg">
+            <h2 className="md:text-2xl text-lg font-bold mb-4 flex items-center">
+              <Disc className="mr-2 text-spotify-green" /> Top Tracks
             </h2>
             <ul>
               {tracks.slice(0, 3).map((track, index) => (
-                <li key={index} className="mb-2 flex items-center">
+                <li key={index} className="pt-2 flex items-center">
                   <img
                     src={track.album.images[2].url}
                     alt={profile.displayName}
@@ -148,9 +147,9 @@ const Profile = ({
             </ul>
           </section>
 
-          <section className="bg-gray-900 p-6 rounded-lg">
-            <h2 className="text-2xl font-bold mb-4 flex items-center">
-              <Clock className="mr-2 text-green-500" /> Recently Played
+          <section className="bg-spotify-grey p-6 rounded-lg">
+            <h2 className="md:md:text-2xl text-lg text-lg font-bold mb-4 flex items-center">
+              <Clock className="mr-2 text-spotify-green" /> Recently Played
             </h2>
             <ul>
               {recentlyPlayed.slice(0,5).map((track, index) => (
@@ -174,9 +173,9 @@ const Profile = ({
             </ul>
           </section>
 
-          <section className="bg-gray-900 p-6 rounded-lg">
-            <h2 className="text-2xl font-bold mb-4 flex items-center">
-              <PlayCircle className="mr-2 text-green-500" /> Your Music
+          <section className="bg-spotify-grey p-6 rounded-lg">
+            <h2 className="md:text-2xl text-lg font-bold mb-4 flex items-center">
+              <PlayCircle className="mr-2 text-spotify-green" /> Your Music
             </h2>
             <p className="mb-2">Playlists: {profileData.playlists}</p>
             <p>Total Listening Time: {profileData.totalListeningTime}</p>

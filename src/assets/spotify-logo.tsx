@@ -1,7 +1,13 @@
 import React from "react";
 
-const SpotifyLogo = () => (
+// Define the prop types
+interface SpotifyLogoProps {
+  className?: string;
+}
+
+const SpotifyLogo: React.FC<SpotifyLogoProps> = ({ className }) => (
   <svg
+    className={className}
     width="50"
     height="50"
     viewBox="0 0 256 256"
