@@ -5,16 +5,17 @@ import Profile from "./Profile";
 import Login from "./Login";
 import Navbar from "./Navbar/Navbar";
 import SpotifyLogo from "../assets/spotify-logo";
-function App() {
-  const { profileData, isLoggedIn, login, logout } = useAuth();
+function Home(profileData: any,   logout: () => void) {
   const [currentPage, setCurrentPage] = useState("Profile");
 
-  const renderPage = () => {
+  console.log('profile: ', profileData);
+
+  const renderPage = (profileData: any, logout: any) => {
     switch (currentPage) {
       case "Profile":
         return <Profile profile={profileData} onLogout={logout} />;
       case "Tracks":
-        return <div>Tracks Page</div>;
+        return <div>Tracks Page test</div>;
       case "Artists":
         return <div>Artists Page</div>;
       case "Recents":
@@ -22,7 +23,7 @@ function App() {
       case "Playlists":
         return <div>Playlists Page</div>;
       default:
-        return <Profile profile={profileData} onLogout={logout} />;
+        return <Profile profile onLogout={logout} />;
     }
   };
 
@@ -32,10 +33,10 @@ function App() {
         <SpotifyLogo className="fixed top-5 left-5" />
         <Navbar setCurrentPage={setCurrentPage} logout={logout} />
         {/* Main content */}
-        <div className="flex-1 p-10 overflow-auto mt-5">{renderPage()}</div>
+        <div className="flex-1 p-10 overflow-auto mt-5">{renderPage(profileData, logout)}</div>
       </div>
     </>
   );
 }
 
-export default App;
+export default Home;
