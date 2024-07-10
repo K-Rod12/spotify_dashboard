@@ -15,7 +15,7 @@ function Home(profileData: any,   logout: () => void) {
       case "Profile":
         return <Profile profile={profileData} onLogout={logout} />;
       case "Tracks":
-        return <div>Tracks Page test2</div>;
+        return <div>Tracks Page</div>;
       case "Artists":
         return <div>Artists Page</div>;
       case "Recents":
