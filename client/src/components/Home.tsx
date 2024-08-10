@@ -1,28 +1,12 @@
 import React, { useEffect, useState } from "react";
-import useAuth from "../utils/Auth";
 import "../index.css";
 import Profile from "./Profile";
-import Login from "./Login";
 import Navbar from "./Navbar/Navbar";
 import SpotifyLogo from "../assets/spotify-logo";
-import { getUser, logout } from "../requests";
+import { logout } from "../requests";
 
 function Home({}) {
   const [currentPage, setCurrentPage] = useState("Profile");
-  const [user, setUser] = useState<any>({});
-
-  useEffect(() => {
-
-    try {
-      getUser().then((response) => {
-        setUser(response.data);
-      });
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      logout();
-      // window.location.href = "/login";
-    }
-  }, []);
 
   const renderPage = () => {
     switch (currentPage) {

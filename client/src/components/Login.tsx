@@ -2,7 +2,6 @@ import React from 'react';
 import "../App.css";
 import '../index.css';  // or './App.css' depending on your file name
 import SpotifyLogo from "../assets/spotify-logo";
-import { Music2 } from 'lucide-react';
 
 const LOGIN_URI =
   process.env.NODE_ENV !== 'production'

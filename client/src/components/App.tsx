@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import useAuth from "../utils/Auth";
 import "../index.css"; // or './App.css' depending on your file name
 import Login from "./Login";
 import Home from "./Home";
