@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Music, Disc, Clock, Users, PlayCircle } from "lucide-react";
 import {
   getUser,
@@ -34,12 +34,12 @@ const Profile = ({setAccessToken}: {setAccessToken:any}) => {
     totalListeningTime: "2,345 hours",
   };
 
-  const logout = () => {
+  const logout = useCallback(() => {
     console.log('Logging out...');
     logoutRequest();
     window.location.href = "/";
     setAccessToken(null);
-  };
+  }, [setAccessToken]);
 
 
   const getUserData = async () => {
