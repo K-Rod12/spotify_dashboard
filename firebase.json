@@ -1,0 +1,27 @@
+{
+  "hosting": {
+    "public": "client/build",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs18",
+    "timeoutSeconds": 540
+  },
+  "emulators": {
+    "functions": {
+      "port": 3000
+    },
+    "ui": {
+      "enabled": true,
+      "port": 3030
+    },
+    "singleProjectMode": true
+  }
+}

@@ -10,10 +10,10 @@ import {
 
 const Profile = ({
   profile,
-  onLogout,
+  logout,
 }: {
   profile: any;
-  onLogout: () => void;
+  logout: () => void;
 }) => {
   const [artists, setArtists] = useState<any[]>([]);
   const [tracks, setTracks] = useState<any[]>([]);
@@ -46,7 +46,6 @@ const Profile = ({
       following: (await getUserFollowingArtists()).data.artists,
       recentlyPlayed: (await getUserRecentlyPlay()).data.items,
     };
-    console.log("Data test:", dataTest);
 
     return dataTest;
   };
@@ -55,7 +54,7 @@ const Profile = ({
     const fetchData = async () => {
       try {
         const response = await getUserData();
-        console.log(response.following); // This logs the response correctly
+
         setTracks(response.tracks);
         setArtists(response.artists);
         setUser(response.user);
@@ -86,19 +85,26 @@ const Profile = ({
       <div className="max-w-4xl mx-auto">
         <header className="flex justify-center items-center mb-8">
           <img
-            src={profile.avatarUrl}
-            alt={profile.displayName}
+            src={profile?.avatarUrl}
+            alt={profile?.displayName}
             className="w-40 h-40 rounded-full mr-8"
           />
           <div>
-            <h1 className="text-4xl font-bold mb-2">{profile.displayName}</h1>
+            <h1 className="text-4xl font-bold mb-2">{profile?.displayName}</h1>
             <div className="flex items-center text-gray-300">
               <Users className="mr-2" size={20} />
               <span>
-                {user.followers?.total || 0} followers • {following.total || 0}{" "}
+                {user.followers?.total || 0} followers • {following?.total || 0}{" "}
                 following
               </span>
             </div>
+          </div>
+
+          <div className="flex justify-center mt-8">
+            <button onClick={logout} className="ml-auto">
+              {" "}
+              Logout
+            </button>
           </div>
         </header>
 
@@ -112,7 +118,7 @@ const Profile = ({
                 <li key={index} className="pt-3 flex items-center">
                   <img
                     src={artist.images[2].url}
-                    alt={profile.displayName}
+                    alt={profile?.displayName}
                     className="w-16 h-16 rounded-full mr-4"
                   ></img>
                   {artist.name}
@@ -130,7 +136,7 @@ const Profile = ({
                 <li key={index} className="pt-2 flex items-center">
                   <img
                     src={track.album.images[2].url}
-                    alt={profile.displayName}
+                    alt={profile?.displayName}
                     className="w-30 h-30 mr-8"
                   ></img>
                   <div className="flex-grow">
@@ -152,11 +158,11 @@ const Profile = ({
               <Clock className="mr-2 text-spotify-green" /> Recently Played
             </h2>
             <ul>
-              {recentlyPlayed.slice(0,5).map((track, index) => (
+              {recentlyPlayed.slice(0, 5).map((track, index) => (
                 <li key={index} className="mb-2 flex items-center">
                   <img
                     src={track.track.album.images[2].url}
-                    alt={profile.displayName}
+                    alt={profile?.displayName}
                     className="w-30 h-30 mr-8"
                   ></img>
                   <div className="flex-grow">

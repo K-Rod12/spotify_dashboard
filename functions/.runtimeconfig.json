@@ -1,0 +1,11 @@
+{
+    "local": {
+      "value": "true"
+    },
+    "PORT": "8888",
+    "app":{
+        "client_id": "d4f12580a11e4c50ab6e180ebce9e33e",
+        "client_secret": "ecc064c98c19429b84cda7a12186981c"
+    }
+  }
+  

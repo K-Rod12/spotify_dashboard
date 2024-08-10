@@ -1,19 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAuth from "../utils/Auth";
 import "../index.css";
 import Profile from "./Profile";
 import Login from "./Login";
 import Navbar from "./Navbar/Navbar";
 import SpotifyLogo from "../assets/spotify-logo";
-function Home(profileData: any,   logout: () => void) {
-  const [currentPage, setCurrentPage] = useState("Profile");
+import { getUser } from "../requests";
 
-  console.log('profile: ', profileData);
+function Home({profileData, logout}) {
+  const [currentPage, setCurrentPage] = useState("Profile");
+  const [user, setUser] = useState<any>({});
+
+  useEffect(() => {
+    getUser().then((response) => {
+      setUser(response.data);
+    });
+  }, []);
 
   const renderPage = (profileData: any, logout: any) => {
     switch (currentPage) {
       case "Profile":
-        return <Profile profile={profileData} onLogout={logout} />;
+        return <Profile profile={profileData} logout={logout} />;
       case "Tracks":
         return <div>Tracks Page</div>;
       case "Artists":
@@ -23,7 +30,7 @@ function Home(profileData: any,   logout: () => void) {
       case "Playlists":
         return <div>Playlists Page</div>;
       default:
-        return <Profile profile onLogout={logout} />;
+        return <Profile profile logout={logout} />;
     }
   };
 

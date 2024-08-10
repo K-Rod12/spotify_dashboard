@@ -60,7 +60,7 @@ const useAuth = (): {
     setProfile(null);
     // Optionally, you can remove any stored tokens here if necessary
     localStorage.removeItem("spotifyProfile");
-    localStorage.removeItem("spotifyAccessToken");
+    localStorage.removeItem("spotify_access_token");
     window.location.href = window.location.origin;
   };
 

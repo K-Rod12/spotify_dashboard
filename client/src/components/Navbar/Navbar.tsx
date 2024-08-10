@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 import { sections } from "./content";
+import React from "react";
 
 export type SectionId = (typeof sections)[number]["id"];
 
@@ -12,7 +13,7 @@ interface NavbarProps {
 
 const Navbar = (props: NavbarProps) => {
   const [activeSection, setActiveSection] = useState<SectionId>("Profile");
-
+  
   return (
     <>
       <nav
