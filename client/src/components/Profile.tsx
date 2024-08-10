@@ -72,7 +72,7 @@ const Profile = ({setAccessToken}: {setAccessToken:any}) => {
     };
 
     fetchData();
-  }, []);
+  }, [logout]);
 
   function formatDuration(durationMs: number) {
     const seconds = Math.floor(durationMs / 1000);
