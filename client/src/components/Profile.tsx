@@ -6,10 +6,10 @@ import {
   getUserTracks,
   getUserFollowingArtists,
   getUserRecentlyPlay,
-  logout,
+  logout as logoutRequest,
 } from "../requests";
 
-const Profile = () => {
+const Profile = ({setAccessToken}: {setAccessToken:any}) => {
   const [artists, setArtists] = useState<any[]>([]);
   const [tracks, setTracks] = useState<any[]>([]);
   const [user, setUser] = useState<any>({});
@@ -33,6 +33,14 @@ const Profile = () => {
     playlists: 42,
     totalListeningTime: "2,345 hours",
   };
+
+  const logout = () => {
+    console.log('Logging out...');
+    logoutRequest();
+    window.location.href = "/";
+    setAccessToken(null);
+  };
+
 
   const getUserData = async () => {
     try {

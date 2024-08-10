@@ -5,13 +5,13 @@ import Navbar from "./Navbar/Navbar";
 import SpotifyLogo from "../assets/spotify-logo";
 import { logout } from "../requests";
 
-function Home() {
+function Home(setAccessToken: any) {
   const [currentPage, setCurrentPage] = useState("Profile");
 
   const renderPage = () => {
     switch (currentPage) {
       case "Profile":
-        return <Profile/>;
+        return <Profile setAccessToken={setAccessToken} />;
       case "Tracks":
         return <div>Tracks Page</div>;
       case "Artists":
@@ -21,7 +21,7 @@ function Home() {
       case "Playlists":
         return <div>Playlists Page</div>;
       default:
-        return <Profile/>;
+        return <Profile setAccessToken={setAccessToken} />;
     }
   };
 

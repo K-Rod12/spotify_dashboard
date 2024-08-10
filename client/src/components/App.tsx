@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       {accessToken ? (
-        <Home />
+        <Home setAccessToken={setAccessToken} />
       ) : (
         <Login />
       )}
