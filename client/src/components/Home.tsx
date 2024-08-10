@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../index.css";
 import Profile from "./Profile";
 import Navbar from "./Navbar/Navbar";
 import SpotifyLogo from "../assets/spotify-logo";
 import { logout } from "../requests";
 
-function Home({}) {
+function Home() {
   const [currentPage, setCurrentPage] = useState("Profile");
 
   const renderPage = () => {
