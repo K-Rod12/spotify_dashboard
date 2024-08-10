@@ -5,22 +5,29 @@ import Profile from "./Profile";
 import Login from "./Login";
 import Navbar from "./Navbar/Navbar";
 import SpotifyLogo from "../assets/spotify-logo";
-import { getUser } from "../requests";
+import { getUser, logout } from "../requests";
 
-function Home({profileData, logout}) {
+function Home({}) {
   const [currentPage, setCurrentPage] = useState("Profile");
   const [user, setUser] = useState<any>({});
 
   useEffect(() => {
-    getUser().then((response) => {
-      setUser(response.data);
-    });
+
+    try {
+      getUser().then((response) => {
+        setUser(response.data);
+      });
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      logout();
+      // window.location.href = "/login";
+    }
   }, []);
 
-  const renderPage = (profileData: any, logout: any) => {
+  const renderPage = () => {
     switch (currentPage) {
       case "Profile":
-        return <Profile profile={profileData} logout={logout} />;
+        return <Profile/>;
       case "Tracks":
         return <div>Tracks Page</div>;
       case "Artists":
@@ -30,7 +37,7 @@ function Home({profileData, logout}) {
       case "Playlists":
         return <div>Playlists Page</div>;
       default:
-        return <Profile profile logout={logout} />;
+        return <Profile/>;
     }
   };
 
@@ -40,7 +47,7 @@ function Home({profileData, logout}) {
         <SpotifyLogo className="fixed top-5 left-5" />
         <Navbar setCurrentPage={setCurrentPage} logout={logout} />
         {/* Main content */}
-        <div className="flex-1 p-10 overflow-auto mt-5">{renderPage(profileData, logout)}</div>
+        <div className="flex-1 p-10 overflow-auto mt-5">{renderPage()}</div>
       </div>
     </>
   );
