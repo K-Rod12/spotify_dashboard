@@ -4,6 +4,7 @@ import Profile from "./Profile";
 import Navbar from "./Navbar/Navbar";
 import TopArtist from "./Artists";
 import TopTracks from "./Tracks";
+import Recent from "./Recent";
 
 function Home(setAccessToken: any) {
   const [currentPage, setCurrentPage] = useState("Profile");
@@ -16,8 +17,8 @@ function Home(setAccessToken: any) {
           return <TopArtist/>;
       case "Tracks":
         return <TopTracks/>;
-      case "Recents":
-        return <div>Recents Page</div>;
+      case "Recent":
+        return <Recent/>;
       case "Playlists":
         return <div>Playlists Page</div>;
       default:

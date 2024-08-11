@@ -14,11 +14,11 @@ export const sections = [
     heading: "Tracks",
   },
   {
-    id: "Recently Played",
-    heading: "Recently Played",
+    id: "Recent",
+    heading: "Recent",
   },
-  {
-    id: "nextjs",
-    heading: "Next.js",
-  },
+  // {
+  //   id: "nextjs",
+  //   heading: "Next.js",
+  // },
 ] as const;

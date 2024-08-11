@@ -27,7 +27,7 @@ const Profile = ({ setAccessToken }: { setAccessToken: any }) => {
     setAccessToken(null);
   }, [setAccessToken]);
 
-  const getUserData = async () => {
+  const getUserData = useCallback(async () => {
     try {
       const artistsResponse = await getUserArtists();
       const tracksResponse = await getUserTracks();
@@ -35,7 +35,7 @@ const Profile = ({ setAccessToken }: { setAccessToken: any }) => {
       const followingResponse = await getUserFollowingArtists();
       const recentlyPlayedResponse = await getUserRecentlyPlay();
       const newReleasesResponse = await getNewReleases();
-
+  
       setArtists(artistsResponse.data.items);
       setTracks(tracksResponse.data.items);
       setUser(userResponse.data);
@@ -44,10 +44,13 @@ const Profile = ({ setAccessToken }: { setAccessToken: any }) => {
       setNewReleases(newReleasesResponse.data.albums.items);
     } catch (error) {
       console.error("Error fetching user data:", error);
+      if(error.response && error.response.status === 401) {
+        logout();
+      }
     } finally {
-      setLoading(false); // Set loading to false after data is fetched
+      setLoading(false);
     }
-  };
+  }, [logout]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +62,7 @@ const Profile = ({ setAccessToken }: { setAccessToken: any }) => {
     };
 
     fetchData();
-  }, [logout]);
+  }, [getUserData, logout]);
 
   function formatDuration(durationMs: number) {
     const seconds = Math.floor(durationMs / 1000);

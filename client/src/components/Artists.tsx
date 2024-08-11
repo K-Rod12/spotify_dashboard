@@ -80,7 +80,7 @@ const TopArtist = () => {
       ) : (
         <div className="flex flex-wrap gap-10 justify-center">
           {topArtists.map((artist, index) => (
-            <div key={index} className="relative group w-52 h-52 mb-4">
+            <div key={index} className="relative group w-64 h-64 mb-10">
               <img
                 src={artist.images[0]?.url}
                 alt={artist.name}
@@ -94,9 +94,14 @@ const TopArtist = () => {
               >
                 <Play className="w-12 h-12 text-white" />
               </a>
-              <h2 className="text-xl font-bold mt-4 text-center">
-                {artist.name}
-              </h2>
+              <div className="flex flex-row mt-4 justify-center">
+                <h2 className="text-xl font-bold text-center opacity-0 group-hover:opacity-50 transition-opacity duration-300 absolute left-0">
+                  {index +1}
+                </h2>
+                <h2 className="text-xl font-bold text-center px-6">
+                  {artist.name}
+                </h2>
+              </div>
             </div>
           ))}
         </div>

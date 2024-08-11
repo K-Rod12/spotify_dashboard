@@ -69,10 +69,10 @@ const TopTracks = () => {
         <div className="flex justify-center items-center min-h-screen pb-40">
           <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
         </div>
-      ) : (      
+      ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 w-full">
           {topTracks.map((track, index) => (
-            <div key={index} className="relative group mb-20 w-full pb-full">
+            <div key={index} className="relative group mb-20 w-full">
               <div className="relative w-full h-full">
                 <img
                   src={track.album.images[0]?.url}
@@ -88,8 +88,18 @@ const TopTracks = () => {
                   <Play className="w-12 h-12 text-white" />
                 </a>
               </div>
-              <h2 className="text-xl font-bold mt-4 text-center">{track.name}</h2>
-              <p className="text-gray-300 text-center">{track.artists[0].name}</p>
+
+              <div className="relative mt-4">
+                <h2 className="text-xl font-bold opacity-0 group-hover:opacity-50 transition-opacity duration-300 absolute left-0">
+                  {index + 1}.
+                </h2>
+                <h2 className="text-xl font-bold text-center pl-8">
+                  {track.name}
+                </h2>
+                <p className="text-gray-300 text-center">
+                  {track.artists[0].name}
+                </p>
+              </div>
             </div>
           ))}
         </div>

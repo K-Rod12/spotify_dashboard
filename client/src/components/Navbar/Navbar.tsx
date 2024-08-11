@@ -13,21 +13,35 @@ interface NavbarProps {
 const Navbar = (props: NavbarProps) => {
   const [activeSection, setActiveSection] = useState<SectionId>("Profile");
   const [scrollY, setScrollY] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
 
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   // Calculate the height and padding based on scrollY
-  const height = Math.max(0, 4 - scrollY / 5) + "rem";
-  const padding = Math.max(0.1, 1 - scrollY / 10) + "rem";
-  const textOpacity = 1 - scrollY / 20; // Text disappears quicker
-  const lineOpacity = 1 - scrollY / 100; // Line disappears slower
+  const height = isMobile
+    ? Math.max(0, 3.5 - scrollY / 5) + "rem"
+    : Math.max(0, 4.5 - scrollY / 5) + "rem";
+  const padding = isMobile
+    ? Math.max(0.1, 0.8 - scrollY / 10) + "rem"
+    : Math.max(0.1, 1 - scrollY / 10) + "rem";
+  const textOpacity = isMobile ? 1 - scrollY / 15 : 1 - scrollY / 20;
+  const lineOpacity = isMobile ? 1 - scrollY / 50 : 1 - scrollY / 100;
 
   return (
     <motion.nav
@@ -58,7 +72,7 @@ const Navbar = (props: NavbarProps) => {
                 setActiveSection(link.id);
                 props.setCurrentPage(link.heading);
               }}
-              className="relative text-xs md:text-sm py-1 md:py-2 px-2 md:px-4 tracking-wide inline-block"
+              className="relative text-sm lg:text-lg py-1 md:py-2 px-2 md:px-4 tracking-wide inline-block"
             >
               <AnimatePresence>
                 {textOpacity > 0 && (
