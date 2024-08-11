@@ -41,6 +41,14 @@
   }
 }
 
+.group:hover .group-hover\:blur-sm {
+  filter: blur(4px);
+}
+
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
+}
+
 .title-icon{
   @apply lg:w-8 lg:h-8 mr-2 text-spotify-green
 }

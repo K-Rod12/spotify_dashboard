@@ -117,8 +117,8 @@ export const getPlaylists = () => axios.get('https://api.spotify.com/v1/me/playl
  * Get a User's Top Artists
  * https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/
  */
-export const getTopArtistsShort = () =>
-  axios.get('https://api.spotify.com/v1/me/top/artists?limit=50&time_range=short_term', {
+export const getTopArtists = (time_range = 'short_term') =>
+  axios.get(`https://api.spotify.com/v1/me/top/artists?limit=50&time_range=${time_range}`, {
     headers,
   });
 export const getTopArtistsMedium = () =>
@@ -134,8 +134,8 @@ export const getNewReleases = () =>
  * Get a User's Top Tracks
  * https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/
  */
-export const getTopTracksShort = () =>
-  axios.get('https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=short_term', { headers });
+export const getTopTracks = (time_range = 'short_term') =>
+  axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${time_range}`, { headers });
 export const getTopTracksMedium = () =>
   axios.get('https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=medium_term', {
     headers,

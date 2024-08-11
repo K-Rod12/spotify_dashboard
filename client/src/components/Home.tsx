@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "../index.css";
 import Profile from "./Profile";
 import Navbar from "./Navbar/Navbar";
+import TopArtist from "./Artists";
+import TopTracks from "./Tracks";
 
 function Home(setAccessToken: any) {
   const [currentPage, setCurrentPage] = useState("Profile");
@@ -10,10 +12,10 @@ function Home(setAccessToken: any) {
     switch (currentPage) {
       case "Profile":
         return <Profile setAccessToken={setAccessToken} />;
+        case "Artists":
+          return <TopArtist/>;
       case "Tracks":
-        return <div>Tracks Page</div>;
-      case "Artists":
-        return <div>Artists Page</div>;
+        return <TopTracks/>;
       case "Recents":
         return <div>Recents Page</div>;
       case "Playlists":
