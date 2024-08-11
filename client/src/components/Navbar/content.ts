@@ -29,10 +29,4 @@ export const sections = [
     paragraph:
       "My favorite framework yet! Every update feels like learning a new framework",
   },
-  {
-    id: "Logout",
-    heading: "Logout",
-    paragraph:
-      "My favorite framework yet! Every update feels like learning a new framework",
-  },
 ] as const;

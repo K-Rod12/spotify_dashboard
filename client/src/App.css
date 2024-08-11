@@ -40,3 +40,7 @@
     transform: rotate(360deg);
   }
 }
+
+.title-icon{
+  @apply lg:w-8 lg:h-8 mr-2 text-spotify-green
+}

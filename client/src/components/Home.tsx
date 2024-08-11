@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import "../index.css";
 import Profile from "./Profile";
 import Navbar from "./Navbar/Navbar";
-import SpotifyLogo from "../assets/spotify-logo";
-import { logout } from "../requests";
 
 function Home(setAccessToken: any) {
   const [currentPage, setCurrentPage] = useState("Profile");
@@ -28,8 +26,7 @@ function Home(setAccessToken: any) {
   return (
     <>
       <div className="flex min-h-screen bg-black text-white">
-        <SpotifyLogo className="fixed top-5 left-5" />
-        <Navbar setCurrentPage={setCurrentPage} logout={logout} />
+        <Navbar setCurrentPage={setCurrentPage}/>
         {/* Main content */}
         <div className="flex-1 p-10 overflow-auto mt-5">{renderPage()}</div>
       </div>

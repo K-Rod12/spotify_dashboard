@@ -127,6 +127,8 @@ export const getTopArtistsMedium = () =>
   });
 export const getTopArtistsLong = () =>
   axios.get('https://api.spotify.com/v1/me/top/artists?limit=50&time_range=long_term', { headers });
+export const getNewReleases = () =>
+  axios.get('https://api.spotify.com/v1/browse/new-releases', { headers });
 
 /**
  * Get a User's Top Tracks
