@@ -28,7 +28,7 @@ function Home(setAccessToken: any) {
       <div className="flex min-h-screen bg-black text-white">
         <Navbar setCurrentPage={setCurrentPage}/>
         {/* Main content */}
-        <div className="flex-1 p-10 overflow-auto mt-5">{renderPage()}</div>
+        <div className="flex-1 p-8 mt-2">{renderPage()}</div>
       </div>
     </>
   );

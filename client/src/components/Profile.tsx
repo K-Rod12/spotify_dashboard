@@ -109,7 +109,7 @@ const Profile = ({ setAccessToken }: { setAccessToken: any }) => {
       <div className="w-2/6"></div>
 
       {/* Right section */}
-      <div className="w-full lg:w-4/6 lg:ml-auto lg:overflow-y-scroll h-screen p-4">
+      <div className="w-full lg:w-4/6 lg:ml-auto lg:mt-5 lg:overflow-y-scroll h-screen">
         <main className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <ProfileSection
             title="Top Artists"
