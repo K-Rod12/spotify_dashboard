@@ -9,7 +9,7 @@ import {
   getNewReleases,
   logout as logoutRequest,
 } from "../requests";
-import ProfileSection from "./ProfileSection";
+import ProfileSection from "../components/ProfileSection";
 
 const Profile = ({ setAccessToken }: { setAccessToken: any }) => {
   const [artists, setArtists] = useState<any[]>([]);

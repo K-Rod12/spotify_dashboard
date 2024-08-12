@@ -56,57 +56,59 @@ const Navbar = (props: NavbarProps) => {
       "
     >
       <div className="flex items-center justify-between w-full">
-        <div className="pl-4">
+        <div className="pl-4 hidden md:block">
           <SpotifyLogo className="h-8 w-8 hidden md:block" />
         </div>
-      <ul
-        className="
+        <div className="overflow-x-auto scrollbar-hide">
+          <ul
+            className="
           flex justify-center items-center gap-1 md:gap-2 
-          font-medium text-white
+          font-medium text-white pl-20
         "
-      >
-        {sections.map((link) => (
-          <li key={link.id}>
-            <button
-              onClick={() => {
-                setActiveSection(link.id);
-                props.setCurrentPage(link.heading);
-              }}
-              className="relative text-sm lg:text-lg py-1 md:py-2 px-2 md:px-4 tracking-wide inline-block"
-            >
-              <AnimatePresence>
-                {textOpacity > 0 && (
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: textOpacity }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.1 }} // Quicker transition for text
-                  >
-                    {link.heading}
-                  </motion.span>
-                )}
-              </AnimatePresence>
+          >
+            {sections.map((link) => (
+              <li key={link.id}>
+                <button
+                  onClick={() => {
+                    setActiveSection(link.id);
+                    props.setCurrentPage(link.heading);
+                  }}
+                  className="relative text-sm lg:text-lg py-1 md:py-2 px-2 md:px-4 tracking-wide inline-block"
+                >
+                  <AnimatePresence>
+                    {textOpacity > 0 && (
+                      <motion.span
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: textOpacity }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.1 }} // Quicker transition for text
+                      >
+                        {link.heading}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
 
-              <AnimatePresence>
-                {lineOpacity > 0 && activeSection === link.id && (
-                  <motion.div
-                    layoutId="bubble"
-                    className="
+                  <AnimatePresence>
+                    {lineOpacity > 0 && activeSection === link.id && (
+                      <motion.div
+                        layoutId="bubble"
+                        className="
                       absolute inset-0 -z-10
                       bg-[#1DB954] rounded-full
                     "
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: lineOpacity }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }} // Slightly slower transition for line
-                  ></motion.div>
-                )}
-              </AnimatePresence>
-            </button>
-          </li>
-        ))}
-      </ul>
-      <div className="pr-4 bg-blue-500"></div>
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: lineOpacity }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }} // Slightly slower transition for line
+                      ></motion.div>
+                    )}
+                  </AnimatePresence>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="pr-4  hidden md:block bg-blue-500"></div>
       </div>
     </motion.nav>
   );

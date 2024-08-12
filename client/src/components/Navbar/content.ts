@@ -17,8 +17,8 @@ export const sections = [
     id: "Recent",
     heading: "Recent",
   },
-  // {
-  //   id: "nextjs",
-  //   heading: "Next.js",
-  // },
+  {
+    id: "Recommendations",
+    heading: "Recommendations",
+  },
 ] as const;

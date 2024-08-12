@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "../index.css";
-import Profile from "./Profile";
+import Profile from "../Pages/Profile";
 import Navbar from "./Navbar/Navbar";
-import TopArtist from "./Artists";
-import TopTracks from "./Tracks";
-import Recent from "./Recent";
+import TopArtist from "../Pages/Artists";
+import TopTracks from "../Pages/Tracks";
+import Recent from "../Pages/Recent";
+import Recommendations from "../Pages/Recommendations";
 
 function Home(setAccessToken: any) {
   const [currentPage, setCurrentPage] = useState("Profile");
@@ -19,8 +20,8 @@ function Home(setAccessToken: any) {
         return <TopTracks/>;
       case "Recent":
         return <Recent/>;
-      case "Playlists":
-        return <div>Playlists Page</div>;
+      case "Recommendations":
+        return <Recommendations/>;
       default:
         return <Profile setAccessToken={setAccessToken} />;
     }
