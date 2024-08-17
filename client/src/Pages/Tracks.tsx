@@ -89,11 +89,11 @@ const TopTracks = () => {
                 </a>
               </div>
 
-              <div className="relative mt-4">
+              <div className="mt-4 text-center justify-center bg-blue-500">
                 <h2 className="text-xl font-bold opacity-0 group-hover:opacity-50 transition-opacity duration-300 absolute left-0">
                   {index + 1}.
                 </h2>
-                <h2 className="text-xl font-bold text-center pl-8">
+                <h2 className="text-xl font-bold text-center px-8">
                   {track.name}
                 </h2>
                 <p className="text-gray-300 text-center">
