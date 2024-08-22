@@ -33,13 +33,19 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
           View all
         </button>
       </div>
-      <ul>
-        {items.map((item, index) => (
-          <li key={index} className="mb-2 py-1 flex items-center">
-            {renderItem(item, index)}
-          </li>
-        ))}
-      </ul>
+      {items.length === 0 ? (
+        <div className="flex justify-center items-center h-32">
+          <p className="text-gray-500">No {title.toLowerCase()} found.</p>
+        </div>
+      ) : (
+        <ul>
+          {items.map((item, index) => (
+            <li key={index} className="mb-2 py-1 flex items-center">
+              {renderItem(item, index)}
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 };
