@@ -2,26 +2,16 @@ import axios from "axios";
 // import { getHashParams } from '../utils';
 
 const api = process.env.REACT_APP_FUNCTIONS_API;
+console.log("API", api)
 export const getSongsFromPrompt = async (prompt: string) => {
-  const content = `Generate a playlist of 20 to 50 songs based on this description: "${prompt}". Ensure the songs transition smoothly between each other. Return me only a parsable and minified JSON object with the following structure:
-    {
-  "name": <Playlist name>, // be creative
-  "description": <Playlist description>, //short description of the playlist
-  "tracks": [
-    {
-      "title": <Song title>,
-      "artist": <Song's artist>
-    },
-    ...
-  ]
-}`;
-
   try {
-    const completion = await axios.post(api + '/generatePlaylist', { prompt })
-    const response = completion.data;
+    const response = await axios.post(`${api}/generatePlaylist`, {
+      prompt
+    });
 
+    const tracks = response.data.tracks;
     // Fetch songs from Spotify based on the song titles
-    const songPromises = response.tracks.map((title) =>
+    const songPromises = tracks.map((title) =>
       axios
         .get(
           `https://api.spotify.com/v1/search?q=${encodeURIComponent(
@@ -35,7 +25,8 @@ export const getSongsFromPrompt = async (prompt: string) => {
     );
 
     const songs = await Promise.all(songPromises);
-    return {playlistName: response.playlistName, playlistDescription: response.playlistDescription, tracks: songs };
+    return {playlistName: response.data.playlistName, playlistDescription: response.data.playlistDescription, tracks: songs };
+    // As spotifyResponse is not defined, we'll return the result instead
   } catch (error) {
     console.error("Error fetching songs from prompt:", error);
     throw error;

@@ -13,10 +13,8 @@ const PromptRecommendations = () => {
   const [generatedTracks, setGeneratedTracks] = useState<any[]>([]);
   const [playlistName, setPlaylistName] = useState("");
   const [playlistDescription, setPlaylistDescription] = useState("");
-  const [playlistId, setPlaylistId] = useState("");
   const [userId, setUserId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [trackUris, setTrackUris] = useState<string[]>([]);
 
@@ -58,23 +56,23 @@ const PromptRecommendations = () => {
     }
   };
 
-  const handleCreatePlaylist = async () => {
-    setIsLoading(true);
-    try {
-      const response = await createPlaylist(
-        userId,
-        playlistName,
-        playlistDescription
-      );
-      setPlaylistId(response.data.id);
-      await handleAddTracks(response.data.id);
-      setIsSuccess(true);
-    } catch (error) {
-      console.error("Error creating playlist:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // const handleCreatePlaylist = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await createPlaylist(
+  //       userId,
+  //       playlistName,
+  //       playlistDescription
+  //     );
+  //     setPlaylistId(response.data.id);
+  //     await handleAddTracks(response.data.id);
+  //     setIsSuccess(true);
+  //   } catch (error) {
+  //     console.error("Error creating playlist:", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const handleAddTracks = async (newPlaylistId: any) => {
     try {

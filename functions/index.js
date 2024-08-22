@@ -2,6 +2,7 @@ const express = require("express");
 const functions = require("firebase-functions");
 const morgan = require("morgan");
 const OpenAI = require("openai");
+const OpenAI = require("openai");
 
 const app = express();
 
@@ -20,7 +21,6 @@ if (isLocal) {
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-// const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_ID = functions.config().app.client_id;
 const CLIENT_SECRET = functions.config().app.client_secret;
 const OPEN_AI_KEY = functions.config().app.open_ai_key;
@@ -36,6 +36,8 @@ const querystring = require("querystring");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const history = require("connect-history-api-fallback");
+
+app.use(express.json());
 
 const openai = new OpenAI({
   apiKey: OPEN_AI_KEY,
@@ -90,10 +92,10 @@ app.get("/", function (req, res) {
 });
 
 app.post("/api/generatePlaylist", async function (req, res) {
-  const prompt = req.body?.prompt;
+  const prompt = req.body.prompt;
 
   // requesting access token from refresh token
-  const content = `Generate a playlist of 20 to 50 songs based on this description: \"${prompt}\". Ensure the songs transition smoothly between each other. Return me only a parsable and minified JSON object with the following structure:
+  const content = `Generate a playlist of 20 to 50 songs based on this description: "${prompt}". Ensure the songs transition smoothly between each other. Return me only a parsable and minified JSON object with the following structure:
     {
   "name": <Playlist name>, // be creative
   "description": <Playlist description>, //short description of the playlist
@@ -129,10 +131,10 @@ app.post("/api/generatePlaylist", async function (req, res) {
     };
     res.send(response);
   } catch (e) {
-    console.error(e);
-    res.status(400).send("Error generating playlist" + e);
+    console.log(e);
+    res.status(400).send("Could not complete request: " + e.message);
   }
-});
+})
 
 app.get("/login", function (req, res) {
   const state = generateRandomString(16);
@@ -143,6 +145,9 @@ app.get("/login", function (req, res) {
   const scope =
     "user-read-private user-read-email user-read-recently-played user-top-read user-follow-read user-follow-modify playlist-read-private playlist-read-collaborative playlist-modify-public";
 
+  console.log(CLIENT_ID);
+  console.log(REDIRECT_URI);
+  console.log(state);
   console.log(CLIENT_ID);
   console.log(REDIRECT_URI);
   console.log(state);
@@ -197,6 +202,9 @@ app.get("/callback", function (req, res) {
           })}`
         );
       } else {
+        res.redirect(
+          `/app/#${querystring.stringify({ error: "invalid_token" })}`
+        );
         res.redirect(
           `/app/#${querystring.stringify({ error: "invalid_token" })}`
         );

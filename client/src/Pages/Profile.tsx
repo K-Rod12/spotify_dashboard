@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Music, Disc, Clock, Users, PlayCircle } from "lucide-react";
+import { Music, Disc, Clock, PlayCircle, Github } from "lucide-react";
 import {
   getUser,
   getUserArtists,
@@ -121,7 +121,7 @@ const Profile = ({
   }
 
   return (
-    <div className="text-white p-1 pt-8 flex flex-col lg:flex-row h-screen">
+    <div className="relative text-white p-1 pt-8 flex flex-col lg:flex-row h-screen">
       {/* Left section */}
       <div className="lg:w-2/6 flex flex-col items-center lg:fixed lg:top-20% lg:h-screen p-4">
         <img
@@ -130,17 +130,21 @@ const Profile = ({
           className="w-44 h-44 lg:w-72 lg:h-72 rounded-full mb-4"
         />
         <h1 className="text-4xl font-bold mb-2">{user?.displayName}</h1>
-        <div className="flex items-center text-gray-300 mb-4">
-          <Users className="mr-2" size={20} />
-          <span>
-            {user.followers?.total || 0} followers • {following?.total || 0}{" "}
-            following
-          </span>
+        <div className="flex flex-col justify-center items-center">
+          <h2 className="font-bold text-4xl md:text-5xl text-gray-300 mb-4 text-center">
+            {user?.display_name}
+          </h2>
+
+          <div className="flex items-center text-gray-300 mb-4">
+            <span className="text-spotify-green font-bold text-md lg:text-lg">
+              {user.followers?.total || 0} followers • {following?.total || 0}{" "}
+              following
+            </span>
+          </div>
         </div>
         <button
           onClick={logout}
-          className="bg-red-500 text-white py-2 px-4 rounded-full"
-          style={{ borderRadius: "20px" }}
+          className="hover:bg-red-500 ease-in-out transition duration-300 bg-spotify-grey text-white py-4 px-6 rounded-full text-xl "
         >
           Logout
         </button>
@@ -246,6 +250,17 @@ const Profile = ({
             )}
           />
         </main>
+        <div className="py-10 lg:py-0 lg:w-2/6 flex justify-center items-center lg:fixed lg:left-10 lg:bottom-20">
+          <Github size={20} className="mr-2 text-gray-500 rounded-full" />
+          <a
+            href="https://github.com/K-Rod12/spotify_dashboard"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline text-center text-gray-500"
+          >
+            Website made by Kenley Rodriguez
+          </a>
+        </div>
       </div>
     </div>
   );
