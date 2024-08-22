@@ -21,4 +21,8 @@ export const sections = [
     id: "Recommendations",
     heading: "Recommendations",
   },
+  {
+    id: "Generate",
+    heading: "Generate",
+  },
 ] as const;

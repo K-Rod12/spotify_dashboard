@@ -6,16 +6,20 @@ interface CreatePlaylistModalProps {
   isOpen: boolean;
   onClose: () => void;
   trackUris: string[];
+  name?: string;
+  description?: string;
 }
 
 const CreatePlaylistModal: React.FC<CreatePlaylistModalProps> = ({
   isOpen,
   onClose,
   trackUris,
+  name = "",
+  description = ""
 }) => {
   const [userId, setUserId] = useState("");
-  const [playlistName, setPlaylistName] = useState("");
-  const [playlistDescription, setPlaylistDescription] = useState("");
+  const [playlistName, setPlaylistName] = useState(name);
+  const [playlistDescription, setPlaylistDescription] = useState(description);
   const [playlistId, setPlaylistId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -33,6 +37,12 @@ const CreatePlaylistModal: React.FC<CreatePlaylistModalProps> = ({
 
     fetchUserId();
   }, []);
+
+  useEffect(() => {
+    // Update the state when the props change
+    setPlaylistName(name);
+    setPlaylistDescription(description);
+  }, [name, description]);
 
   const handleCreatePlaylist = async () => {
     setIsLoading(true);

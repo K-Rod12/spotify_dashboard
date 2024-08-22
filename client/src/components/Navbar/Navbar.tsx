@@ -61,11 +61,11 @@ const Navbar = (props: NavbarProps) => {
         <div className="pl-4 hidden md:block">
           <SpotifyLogo className="h-8 w-8 hidden md:block" />
         </div>
-        <div className="overflow-x-auto scrollbar-hide">
+        <div className="flex overflow-x-auto scrollbar-hide">
           <ul
             className="
-          flex justify-center items-center gap-1 md:gap-2 
-          font-medium text-white pl-20
+          flex justify-center items-center gap-1 md:gap-2
+          font-medium text-white radius-lg
         "
           >
             {sections.map((link) => (

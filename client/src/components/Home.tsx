@@ -6,6 +6,7 @@ import TopArtist from "../Pages/Artists";
 import TopTracks from "../Pages/Tracks";
 import Recent from "../Pages/Recent";
 import Recommendations from "../Pages/Recommendations";
+import PromptRecommendations from "../Pages/PrompRecommendations";
 
 const removeStaleLocalStorageItem = (key: string, expiryHours: number) => {
   const item = localStorage.getItem(key);
@@ -45,6 +46,8 @@ function Home(setAccessToken: any) {
         return <Recent/>;
       case "Recommendations":
         return <Recommendations/>;
+      case "Generate":
+        return <PromptRecommendations/>;
       default:
         return <Profile setAccessToken={setAccessToken} setCurrentPage={setCurrentPage}/>;
     }

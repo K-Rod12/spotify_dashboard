@@ -1,7 +1,7 @@
-// functions/src/index.js
 const express = require("express");
 const functions = require("firebase-functions");
 const morgan = require("morgan");
+const OpenAI = require("openai");
 
 const app = express();
 
@@ -17,9 +17,13 @@ if (isLocal) {
   );
 }
 
+// Middleware to parse JSON bodies
+app.use(express.json());
+
 // const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_ID = functions.config().app.client_id;
 const CLIENT_SECRET = functions.config().app.client_secret;
+const OPEN_AI_KEY = functions.config().app.open_ai_key;
 let REDIRECT_URI =
   functions.config().app.redirect_uri || "http://localhost:8888/callback";
 let FRONTEND_URI =
@@ -32,6 +36,10 @@ const querystring = require("querystring");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const history = require("connect-history-api-fallback");
+
+const openai = new OpenAI({
+  apiKey: OPEN_AI_KEY,
+});
 
 /**
  * Generates a random string containing numbers and letters
@@ -69,12 +77,61 @@ app
         { from: /\/callback/, to: "/callback" },
         { from: /\/refresh_token/, to: "/refresh_token" },
       ],
+      disableDotRule: true,
+      htmlAcceptHeaders: ['text/html', 'application/xhtml+xml'],
+      // Add this line to exclude API routes
+      ignorePatterns: [/^\/api/, /^\/getSongs/]
     })
   )
   .use(express.static(path.resolve(__dirname, "../client/build")));
 
 app.get("/", function (req, res) {
   res.render(path.resolve(__dirname, "../client/build/index.html"));
+});
+
+app.post("/api/generatePlaylist", async function (req, res) {
+  const prompt = req.body?.prompt;
+
+  // requesting access token from refresh token
+  const content = `Generate a playlist of 20 to 50 songs based on this description: \"${prompt}\". Ensure the songs transition smoothly between each other. Return me only a parsable and minified JSON object with the following structure:
+    {
+  "name": <Playlist name>, // be creative
+  "description": <Playlist description>, //short description of the playlist
+  "tracks": [
+    {
+      "title": <Song title>,
+      "artist": <Song's artist>
+    },
+    ...
+  ]
+}`;
+
+  try {
+    const completion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        {
+          role: "user",
+          content,
+        },
+      ],
+    });
+    const result = JSON.parse(completion.choices[0].message.content || "");
+    const songTitles = result.tracks.map(
+      (track) => `${track.title} ${track.artist}`
+    );
+
+    const response = {
+      playlistName: result.name,
+      playlistDescription: result.description,
+      tracks: songTitles,
+    };
+    res.send(response);
+  } catch (e) {
+    console.error(e);
+    res.status(400).send("Error generating playlist" + e);
+  }
 });
 
 app.get("/login", function (req, res) {
@@ -86,9 +143,9 @@ app.get("/login", function (req, res) {
   const scope =
     "user-read-private user-read-email user-read-recently-played user-top-read user-follow-read user-follow-modify playlist-read-private playlist-read-collaborative playlist-modify-public";
 
-  console.log(CLIENT_ID)
-  console.log(REDIRECT_URI)
-  console.log(state)
+  console.log(CLIENT_ID);
+  console.log(REDIRECT_URI);
+  console.log(state);
   res.redirect(
     `https://accounts.spotify.com/authorize?${querystring.stringify({
       response_type: "code",
@@ -107,7 +164,6 @@ app.get("/callback", function (req, res) {
   const code = req.query.code || null;
   const state = req.query.state || null;
   const storedState = req.cookies ? req.cookies[stateKey] : null;
-
 
   if (state === null || state !== storedState) {
     res.redirect(`/#${querystring.stringify({ error: "state_mismatch" })}`);
@@ -141,7 +197,9 @@ app.get("/callback", function (req, res) {
           })}`
         );
       } else {
-        res.redirect(`/app/#${querystring.stringify({ error: "invalid_token" })}`);
+        res.redirect(
+          `/app/#${querystring.stringify({ error: "invalid_token" })}`
+        );
       }
     });
   }

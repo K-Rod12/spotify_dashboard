@@ -14,6 +14,7 @@
     "axios": "^1.7.2",
     "framer-motion": "^11.2.12",
     "lucide-react": "^0.397.0",
+    "openai": "^4.56.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
