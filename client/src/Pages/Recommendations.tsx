@@ -4,7 +4,10 @@ import TrackItem from "../components/TrackItem"; // Ensure this component is def
 import CreatePlaylistModal from "../components/CreatePlaylistModal"; // Ensure this component is defined in your components folder
 
 const Recommendations = () => {
-  const [recommendedTracks, setRecommendedTracks] = useState<any[]>([]);
+  const [recommendedTracks, setRecommendedTracks] = useState<any[]>(() => {
+    const storedTracks = localStorage.getItem("recommendedTracks");
+    return storedTracks ? JSON.parse(storedTracks) : [];
+  });
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [trackUris, setTrackUris] = useState<string[]>([]);
@@ -20,19 +23,35 @@ const Recommendations = () => {
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        // Fetch user's top tracks
-        const topTracksResponse = await getTopTracks("short_term");
-        const topTracks = topTracksResponse.data.items.slice(0, 5); // Get the top 5 tracks
+        const savedRecommendedTracks = localStorage.getItem("recommendedTracks");
+        
+        if (savedRecommendedTracks) {
+          const parsedTracks = JSON.parse(savedRecommendedTracks);
+          setRecommendedTracks(parsedTracks);
+          setTrackUris(parsedTracks.map((track: any) => track.uri));
+          setLoading(false);
+        } else {
+          // Fetch user's top tracks
+          const topTracksResponse = await getTopTracks("short_term");
+          const topTracks = topTracksResponse.data.items.slice(0, 5); // Get the top 5 tracks
 
-        // Get track IDs to use as seed tracks
-        const seedTracks = topTracks.map((track: any) => track.id);
+          // Get track IDs to use as seed tracks
+          const seedTracks = topTracks.map((track: any) => track.id);
 
-        // Fetch recommendations based on the top 5 tracks
-        const recommendationsResponse = await getRecommendations(seedTracks);
-        setRecommendedTracks(recommendationsResponse.data.tracks);
+          // Fetch recommendations based on the top 5 tracks
+          const recommendationsResponse = await getRecommendations(seedTracks);
+          const recommendedTracksData = recommendationsResponse.data.tracks;
 
-        const uris = recommendationsResponse.data.tracks.map((track: any) => track.uri).join(",");
-        setTrackUris(uris);
+          setRecommendedTracks(recommendedTracksData);
+          setTrackUris(recommendedTracksData.map((track: any) => track.uri));
+
+          // Save recommended tracks to local storage
+          localStorage.setItem("recommendedTracks", JSON.stringify(recommendedTracksData));
+          localStorage.setItem(
+            "recommendedTracksTimestamp",
+            new Date().getTime().toString()
+          );
+        }
       } catch (error) {
         console.error("Error fetching recommendations:", error);
       } finally {

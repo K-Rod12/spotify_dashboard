@@ -8,6 +8,7 @@ export type SectionId = (typeof sections)[number]["id"];
 
 interface NavbarProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<string>>;
+  currentPage: string;
 }
 
 const Navbar = (props: NavbarProps) => {
@@ -16,6 +17,7 @@ const Navbar = (props: NavbarProps) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
+    setActiveSection(props.currentPage.replace(' ', '-') as SectionId);
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
@@ -31,8 +33,8 @@ const Navbar = (props: NavbarProps) => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
 
+  }, [props.currentPage]);
   // Calculate the height and padding based on scrollY
   const height = isMobile
     ? Math.max(0, 3.5 - scrollY / 5) + "rem"
