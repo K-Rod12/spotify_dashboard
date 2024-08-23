@@ -148,6 +148,19 @@ const Profile = ({
         >
           Logout
         </button>
+
+        <div className="hidden py-10 w-full lg:flex justify-center items-center absolute left-0 bottom-20">
+          <Github size={20} className="mr-2 text-gray-500 rounded-full" />
+          <a
+            href="https://github.com/K-Rod12/spotify_dashboard"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline text-center text-gray-500"
+          >
+            Website made by Kenley Rodriguez
+          </a>
+        </div>
+
       </div>
       <div className="w-2/6"></div>
 
@@ -250,7 +263,7 @@ const Profile = ({
             )}
           />
         </main>
-        <div className="py-10 lg:py-0 lg:w-2/6 flex justify-center items-center lg:fixed lg:left-10 lg:bottom-20">
+        <div className="lg:hidden py-10 flex justify-center items-center lg:bottom-20">
           <Github size={20} className="mr-2 text-gray-500 rounded-full" />
           <a
             href="https://github.com/K-Rod12/spotify_dashboard"
