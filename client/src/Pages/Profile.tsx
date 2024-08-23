@@ -29,6 +29,7 @@ const Profile = ({
     return storedTracks ? JSON.parse(storedTracks) : [];
   });
   const [loading, setLoading] = useState(true); // Loading state
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
 
   const logout = useCallback(() => {
     console.log("Logging out...");
@@ -57,7 +58,7 @@ const Profile = ({
       await fetchAndSetData(getUserRecentlyPlay, setRecentlyPlayed);
 
       const topTracksResponse = await getTopTracks("short_term");
-      const topTracks = topTracksResponse.data.items.slice(0, 5);
+      const topTracks = topTracksResponse.data.items.slice(0, 10);
       const seedTracks = topTracks.map((track: any) => track.id);
       if (!recommendedTracks) {
         try {
@@ -98,6 +99,16 @@ const Profile = ({
     };
 
     fetchData();
+
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, [getUserData, logout]);
 
   function formatDuration(durationMs: number) {
@@ -119,6 +130,8 @@ const Profile = ({
       </div>
     );
   }
+
+  const sliceEnd = isSmallScreen ? 5 : 8;
 
   return (
     <div className="relative text-white p-1 pt-8 flex flex-col lg:flex-row h-screen">
@@ -170,7 +183,7 @@ const Profile = ({
           <ProfileSection
             title="Top Artists"
             icon={<Music className="title-icon" />}
-            items={artists.slice(0, 5)}
+            items={artists.slice(0, sliceEnd)}
             setCurrentPage={setCurrentPage}
             navId="Artists"
             renderItem={(artist, index) => (
@@ -188,7 +201,7 @@ const Profile = ({
           <ProfileSection
             title="Top Tracks"
             icon={<Disc className="title-icon" />}
-            items={tracks.slice(0, 5)}
+            items={tracks.slice(0, sliceEnd)}
             setCurrentPage={setCurrentPage}
             navId="Tracks"
             renderItem={(track, index) => (
@@ -214,7 +227,7 @@ const Profile = ({
           <ProfileSection
             title="Recently Played"
             icon={<Clock className="title-icon" />}
-            items={recentlyPlayed.slice(0, 5)}
+            items={recentlyPlayed.slice(0, sliceEnd)}
             setCurrentPage={setCurrentPage}
             navId="Recent"
             renderItem={(track, index) => (
@@ -240,7 +253,7 @@ const Profile = ({
           <ProfileSection
             title="Recommended Tracks"
             icon={<PlayCircle className="title-icon" />}
-            items={recommendedTracks.slice(0, 5)}
+            items={recommendedTracks.slice(0, sliceEnd)}
             setCurrentPage={setCurrentPage}
             navId="Recommendations"
             renderItem={(track, index) => (
