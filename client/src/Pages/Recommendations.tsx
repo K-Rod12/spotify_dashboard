@@ -96,7 +96,7 @@ const Recommendations = () => {
               Save as Playlist
             </span>{" "}
           </div>
-          <div className="flex flex-col items-center w-4/5">
+          <div className="flex flex-col items-center w-full lg:w-4/5">
             {recommendedTracks.map((track, index) => (
               <TrackItem key={index} track={track} />
             ))}
