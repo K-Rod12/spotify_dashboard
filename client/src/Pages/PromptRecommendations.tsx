@@ -66,8 +66,8 @@ const PromptRecommendations = () => {
   // };
 
   return (
-    <div className="text-white p-1 pt-10 flex flex-col items-center min-h-screen">
-      <h1 className="text-4xl m-4 font-bold">Generate Song Recommendations</h1>
+    <div className="text-white p-1 pt-10 flex flex-col items-center min-h-screen min-w-screen">
+      <h1 className="text-4xl m-4 text-center font-bold">Generate a Playlist</h1>
       <form onSubmit={handleSubmit} className="mb-5">
         <input
           type="text"

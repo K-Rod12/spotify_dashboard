@@ -72,7 +72,7 @@ const Recommendations = () => {
 
   return (
     <div className="text-white p-1 pt-10 flex flex-col items-center min-h-screen">
-      <h1 className="text-4xl m-4 font-bold">Recommended for You</h1>
+      <h1 className="text-4xl m-4 text-center font-bold">Recommended for You</h1>
       <div className="flex mb-5">
         <span
           className={`text-gray-500 hover:text-spotify-green cursor-pointer`}

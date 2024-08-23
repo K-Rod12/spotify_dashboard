@@ -6,7 +6,7 @@ import TopArtist from "../Pages/Artists";
 import TopTracks from "../Pages/Tracks";
 import Recent from "../Pages/Recent";
 import Recommendations from "../Pages/Recommendations";
-import PromptRecommendations from "../Pages/PrompRecommendations";
+import PromptRecommendations from "../Pages/PromptRecommendations";
 
 const removeStaleLocalStorageItem = (key: string, expiryHours: number) => {
   const item = localStorage.getItem(key);
