@@ -31,7 +31,7 @@ const TopTracks = () => {
     <div className="text-white p-1 pt-8 flex flex-col items-center min-h-screen">
       <div className="flex flex-col justify-between items-center w-full mb-8">
         <h1 className="text-4xl font-bold m-5">Top Tracks</h1>
-        <div className="flex space-x-4">
+        <div className="flex space-x-4 text-sm md:text-lg">
           <span
             className={`hover:text-white cursor-pointer ${
               timeRange === "short_term"
