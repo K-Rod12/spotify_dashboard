@@ -111,7 +111,7 @@ const PromptRecommendations = () => {
               </span>
             )}
           </div>
-          <div className="w-full">
+          <div className="w-4/5 ">
             {generatedTracks.map((track, index) => (
               <TrackItem key={index} track={track} />
             ))}

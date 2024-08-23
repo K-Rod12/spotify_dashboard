@@ -9,7 +9,7 @@ interface TrackItemProps {
 const TrackItem: React.FC<TrackItemProps> = ({ key, track }) => {
 
   return (
-    <div className="flex items-center mb-4 p-2 bg-spotify-grey rounded-lg hover:bg-spotify-grey-hover transition duration-300">
+    <div className="flex items-center mb-4 w-full p-2 bg-spotify-grey rounded-lg hover:bg-spotify-grey-hover transition duration-300">
       <img
         src={track.album.images[0]?.url}
         alt={track.name}
