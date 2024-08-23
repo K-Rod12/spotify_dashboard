@@ -209,7 +209,7 @@ const Profile = ({
                 <img
                   src={track.album.images[2]?.url}
                   alt={track.name}
-                  className="w-30 h-30 mr-8"
+                  className="w-30 h-30 mr-8 rounded-md"
                 />
                 <div className="lg:text-lg flex-grow">
                   {track.name}
@@ -235,7 +235,7 @@ const Profile = ({
                 <img
                   src={track.track.album?.images[2]?.url}
                   alt={track.track.name}
-                  className="w-30 h-30 mr-8"
+                  className="w-30 h-30 mr-8 rounded-md"
                 />
                 <div className="lg:text-lg flex-grow">
                   {track.track.name}
@@ -261,7 +261,7 @@ const Profile = ({
                 <img
                   src={track.album?.images[2]?.url}
                   alt={track.name}
-                  className="w-30 h-30 mr-8"
+                  className="w-30 h-30 mr-8 rounded-md"
                 />
                 <div className="lg:text-lg flex-grow">
                   {track.name}

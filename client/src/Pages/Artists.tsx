@@ -97,7 +97,7 @@ const TopArtist = () => {
               </a>
               <div className="flex flex-row mt-4 justify-center">
                 <h2 className="text-xl font-bold text-center opacity-0 group-hover:opacity-50 transition-opacity duration-300 absolute left-0">
-                  {index + 1}
+                  {sortOption === "popularity" ? `${artist.popularity}%` : `${index + 1}.`}
                 </h2>
                 <h2 className="text-xl font-bold text-center px-6">
                   {artist.name}
