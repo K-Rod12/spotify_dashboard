@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   getSongsFromPrompt,
-  createPlaylist,
   addTracksToPlaylist,
-  getUser,
 } from "../requests";
 import TrackItem from "../components/TrackItem";
 import CreatePlaylistModal from "../components/CreatePlaylistModal";
@@ -13,24 +11,9 @@ const PromptRecommendations = () => {
   const [generatedTracks, setGeneratedTracks] = useState<any[]>([]);
   const [playlistName, setPlaylistName] = useState("");
   const [playlistDescription, setPlaylistDescription] = useState("");
-  const [userId, setUserId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [trackUris, setTrackUris] = useState<string[]>([]);
-
-  useEffect(() => {
-    // Fetch the user's ID
-    const fetchUserId = async () => {
-      try {
-        const response = await getUser();
-        setUserId(response.data.id);
-      } catch (error) {
-        console.error("Error fetching user ID:", error);
-      }
-    };
-
-    fetchUserId();
-  }, []);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -74,14 +57,14 @@ const PromptRecommendations = () => {
   //   }
   // };
 
-  const handleAddTracks = async (newPlaylistId: any) => {
-    try {
-      const response = await addTracksToPlaylist(newPlaylistId, trackUris);
-      console.log("Tracks added:", response.data);
-    } catch (error) {
-      console.error("Error adding tracks:", error);
-    }
-  };
+  // const handleAddTracks = async (newPlaylistId: any) => {
+  //   try {
+  //     const response = await addTracksToPlaylist(newPlaylistId, trackUris);
+  //     console.log("Tracks added:", response.data);
+  //   } catch (error) {
+  //     console.error("Error adding tracks:", error);
+  //   }
+  // };
 
   return (
     <div className="text-white p-1 pt-10 flex flex-col items-center min-h-screen">

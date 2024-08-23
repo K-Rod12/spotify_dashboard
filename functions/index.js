@@ -2,7 +2,6 @@ const express = require("express");
 const functions = require("firebase-functions");
 const morgan = require("morgan");
 const OpenAI = require("openai");
-const OpenAI = require("openai");
 
 const app = express();
 
