@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   getSongsFromPrompt,
-  addTracksToPlaylist,
 } from "../requests";
 import TrackItem from "../components/TrackItem";
 import CreatePlaylistModal from "../components/CreatePlaylistModal";
