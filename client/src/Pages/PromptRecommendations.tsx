@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import {
-  getSongsFromPrompt,
-} from "../requests";
+import React, { useState, useEffect, useCallback } from "react";
+import { getSongsFromPrompt } from "../requests";
 import TrackItem from "../components/TrackItem";
 import CreatePlaylistModal from "../components/CreatePlaylistModal";
 
@@ -13,6 +11,23 @@ const PromptRecommendations = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [trackUris, setTrackUris] = useState<string[]>([]);
+  const [placeholderText, setPlaceholderText] = useState("");
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+
+  const fullPlaceholder = "The best music from the 90s";
+
+  const typeNextCharacter = useCallback(() => {
+    if (placeholderIndex < fullPlaceholder.length) {
+      setPlaceholderText(prevText => prevText + fullPlaceholder[placeholderIndex]);
+      setPlaceholderIndex(prevIndex => prevIndex + 1);
+    }
+  }, [placeholderIndex, fullPlaceholder]);
+
+  useEffect(() => {
+    const typingInterval = setInterval(typeNextCharacter, 100);
+
+    return () => clearInterval(typingInterval);
+  }, [typeNextCharacter]);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -38,80 +53,54 @@ const PromptRecommendations = () => {
     }
   };
 
-  // const handleCreatePlaylist = async () => {
-  //   setIsLoading(true);
-  //   try {
-  //     const response = await createPlaylist(
-  //       userId,
-  //       playlistName,
-  //       playlistDescription
-  //     );
-  //     setPlaylistId(response.data.id);
-  //     await handleAddTracks(response.data.id);
-  //     setIsSuccess(true);
-  //   } catch (error) {
-  //     console.error("Error creating playlist:", error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
-  // const handleAddTracks = async (newPlaylistId: any) => {
-  //   try {
-  //     const response = await addTracksToPlaylist(newPlaylistId, trackUris);
-  //     console.log("Tracks added:", response.data);
-  //   } catch (error) {
-  //     console.error("Error adding tracks:", error);
-  //   }
-  // };
-
   return (
-    <div className="text-white p-1 pt-10 flex flex-col items-center min-h-screen min-w-screen">
-      <h1 className="text-4xl m-4 text-center font-bold">Generate a Playlist</h1>
-      <form onSubmit={handleSubmit} className="mb-5">
-        <input
-          type="text"
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Enter a prompt"
-          className="
-            bg-transparent
-            border-b
-            focus:outline-none
-            border-spotify-green
-            py-2
-            px-2
-            text-white
-            placeholder-gray-500
-          "
-        />
-        <button type="submit" className="ml-2 p-2 bg-spotify-green rounded-lg">
-          Generate
-        </button>
-      </form>
+    <div className="text-white p-1 pt-8 flex flex-col flex-grow items-center justify-center h-full min-w-screen">
+      <div className="flex-2 flex justify-center w-full pt-16">
+        <form onSubmit={handleSubmit} className="mb-5 text-center">
+          <input
+            type="text"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            placeholder={placeholderText}
+            className="
+              bg-transparent
+              border-b
+              focus:outline-none
+              border-spotify-green
+              py-2
+              px-2
+              text-white
+              text-center
+              placeholder-gray-500
+              w-64
+            "
+          />
+          <button type="submit" className="ml-2 p-2 bg-spotify-green rounded-lg w-full lg:w-normal mt-5">
+            Generate
+          </button>
+        </form>
+      </div>
       {isLoading ? (
-        <div className="flex justify-center items-center min-h-screen pb-40">
+        <div className="flex justify-center items-center">
           <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
         </div>
-      ) : (
+      ) : generatedTracks.length > 0 ? (
         <>
           {playlistName && playlistDescription && (
-            <div className="mb-5 text-center">
+            <div className="my-5 text-center">
               <h2 className="text-2xl font-bold">{playlistName}</h2>
               <p className="text-gray-400">{playlistDescription}</p>
             </div>
           )}
           <div className="flex mb-5">
-            {generatedTracks && generatedTracks.length > 0 && (
-              <span
-                className="text-gray-500 hover:text-spotify-green cursor-pointer"
-                onClick={handleOpenModal}
-              >
-                Save as Playlist
-              </span>
-            )}
+            <span
+              className="text-gray-500 hover:text-spotify-green cursor-pointer"
+              onClick={handleOpenModal}
+            >
+              Save as Playlist
+            </span>
           </div>
-          <div className="w-full lg:w-4/5 ">
+          <div className="w-full lg:w-4/5">
             {generatedTracks.map((track, index) => (
               <TrackItem key={index} track={track} />
             ))}
@@ -124,6 +113,10 @@ const PromptRecommendations = () => {
             description={playlistDescription}
           />
         </>
+      ) : (
+        <div className="flex-3 flex items-center justify-center">
+          <p className="text-2xl lg:text-4xl text-center text-gray-500">Enter a prompt to generate your playlist</p>
+        </div>
       )}
     </div>
   );
