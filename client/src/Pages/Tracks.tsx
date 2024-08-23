@@ -6,13 +6,20 @@ const TopTracks = () => {
   const [topTracks, setTopTracks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState("short_term");
+  const [sortOption, setSortOption] = useState("default");
 
   useEffect(() => {
     const fetchTopTracks = async () => {
       setLoading(true);
       try {
         const response = await getTopTracks(timeRange);
-        setTopTracks(response.data.items); // Set all top tracks
+        let tracks = response.data.items;
+        // Sort by popularity if the sort option is set to popularity
+        if (sortOption === "popularity") {
+          tracks = tracks.sort((a: any, b: any) => b.popularity - a.popularity);
+        }
+
+        setTopTracks(tracks); // Set all top tracks
       } catch (error) {
         console.error("Error fetching top tracks:", error);
       } finally {
@@ -21,10 +28,14 @@ const TopTracks = () => {
     };
 
     fetchTopTracks();
-  }, [timeRange]);
+  }, [timeRange, sortOption]);
 
   const handleTimeRangeChange = (range: string) => {
     setTimeRange(range);
+  };
+
+  const handleSortOptionChange = (option: string) => {
+    setSortOption(option);
   };
 
   return (
@@ -61,6 +72,15 @@ const TopTracks = () => {
             onClick={() => handleTimeRangeChange("long_term")}
           >
             All Time
+          </span>
+          <div className="flex items-center">
+            <span className="text-white mx-2">|</span>
+          </div>
+          <span
+            className={`hover:text-green-400 cursor-pointer ${sortOption === "popularity" ? "text-spotify-green underline underline-offset-2" : "text-gray-500"}`}
+            onClick={() => handleSortOptionChange(sortOption === "default" ? "popularity" : "default")}
+          >
+            By Popularity
           </span>
         </div>
       </div>
