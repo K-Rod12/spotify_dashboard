@@ -22,10 +22,15 @@ module.exports = {
           '0%': { transform: 'translateX(-100%) skewX(-12deg)' },
           '100%': { transform: 'translateX(200%) skewX(-12deg)' },
         },
+        textShine: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '60%': { backgroundPosition: '300% 50%' },
+        },
       },
       animation: {
         shimmer: 'shimmer 2s infinite',
         'loading-shimmer': 'loadingShimmer 2s infinite linear',
+        textShine: 'textShine 10s ease-in-out infinite',
       },
     },
   },

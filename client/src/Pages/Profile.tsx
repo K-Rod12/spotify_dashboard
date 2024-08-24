@@ -60,7 +60,7 @@ const Profile = ({
       const topTracksResponse = await getTopTracks("short_term");
       const topTracks = topTracksResponse.data.items.slice(0, 10);
       const seedTracks = topTracks.map((track: any) => track.id);
-      
+
       if (!recommendedTracks) {
         try {
           const recommendedTracksResponse = await getRecommendations(
@@ -105,10 +105,10 @@ const Profile = ({
       setIsSmallScreen(window.innerWidth < 768);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [getUserData, logout]);
 
@@ -169,12 +169,13 @@ const Profile = ({
             href="https://github.com/K-Rod12/spotify_dashboard"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:underline text-center text-gray-500"
+            className="hover:underline text-center relative text-gray-500"
           >
-            Website made by Kenley Rodriguez
+            <span className="bg-gradient-to-r from-gray-600 via-gray-400 to-gray-600 bg-[length:200%_100%] animate-textShine bg-clip-text text-transparent">
+              Website made by Kenley Rodriguez
+            </span>
           </a>
         </div>
-
       </div>
       <div className="w-2/6"></div>
 
@@ -283,9 +284,11 @@ const Profile = ({
             href="https://github.com/K-Rod12/spotify_dashboard"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:underline text-center text-gray-500"
+            className="hover:underline text-center relative text-gray-500"
           >
-            Website made by Kenley Rodriguez
+            <span className="bg-gradient-to-r from-gray-600 via-gray-400 to-gray-600 bg-[length:200%_100%] animate-textShine bg-clip-text text-transparent">
+              Website made by Kenley Rodriguez
+            </span>
           </a>
         </div>
       </div>
