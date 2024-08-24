@@ -195,7 +195,14 @@ const Profile = ({
                   alt={artist.name}
                   className="w-16 h-16 rounded-full mr-4"
                 />
-                <div className="lg:text-lg">{artist.name}</div>
+                <a
+                  href={artist.external_urls.spotify}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="lg:text-lg truncate max-w-[calc(100%-5rem)] hover:underline"
+                >
+                  {artist.name}
+                </a>
               </>
             )}
           />
@@ -213,13 +220,36 @@ const Profile = ({
                   alt={track.name}
                   className="w-30 h-30 mr-8 rounded-md"
                 />
-                <div className="lg:text-lg flex-grow">
-                  {track.name}
-                  <div className="text-gray-300">
-                    {track.artists[0].name} • {track.album.name}
+                <div className="lg:text-lg flex-grow overflow-hidden">
+                  <a
+                    href={track.external_urls.spotify}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="truncate hover:underline block"
+                  >
+                    {track.name}
+                  </a>
+                  <div className="text-gray-300 truncate">
+                    <a
+                      href={track.artists[0].external_urls.spotify}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      {track.artists[0].name}
+                    </a>{" "}
+                    •{" "}
+                    <a
+                      href={track.album.external_urls.spotify}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      {track.album.name}
+                    </a>
                   </div>
                 </div>
-                <div className="text-gray-300">
+                <div className="hidden md:block text-gray-300">
                   {formatDuration(track.duration_ms)}
                 </div>
               </>
@@ -239,13 +269,36 @@ const Profile = ({
                   alt={track.track.name}
                   className="w-30 h-30 mr-8 rounded-md"
                 />
-                <div className="lg:text-lg flex-grow">
-                  {track.track.name}
-                  <div className="text-gray-300">
-                    {track.track.artists[0].name} • {track.track.album.name}
+                <div className="lg:text-lg flex-grow overflow-hidden">
+                  <a
+                    href={track.track.external_urls.spotify}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="truncate hover:underline block"
+                  >
+                    {track.track.name}
+                  </a>
+                  <div className="text-gray-300 truncate">
+                    <a
+                      href={track.track.artists[0].external_urls.spotify}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      {track.track.artists[0].name}
+                    </a>{" "}
+                    •{" "}
+                    <a
+                      href={track.track.album.external_urls.spotify}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      {track.track.album.name}
+                    </a>
                   </div>
                 </div>
-                <div className="text-gray-300">
+                <div className="hidden md:block text-gray-300">
                   {formatDuration(track.track.duration_ms)}
                 </div>
               </>
@@ -265,19 +318,43 @@ const Profile = ({
                   alt={track.name}
                   className="w-30 h-30 mr-8 rounded-md"
                 />
-                <div className="lg:text-lg flex-grow">
-                  {track.name}
-                  <div className="text-gray-300">
-                    {track.artists[0].name} • {track.album.name}
+                <div className="lg:text-lg flex-grow overflow-hidden">
+                  <a
+                    href={track.external_urls.spotify}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="truncate hover:underline block"
+                  >
+                    {track.name}
+                  </a>
+                  <div className="text-gray-300 truncate">
+                    <a
+                      href={track.artists[0].external_urls.spotify}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      {track.artists[0].name}
+                    </a>{" "}
+                    •{" "}
+                    <a
+                      href={track.album.external_urls.spotify}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      {track.album.name}
+                    </a>
                   </div>
                 </div>
-                <div className="text-gray-300">
+                <div className="hidden md:block text-gray-300">
                   {formatDuration(track.duration_ms)}
                 </div>
               </>
             )}
           />
         </main>
+
         <div className="lg:hidden py-10 flex justify-center items-center lg:bottom-20">
           <Github size={20} className="mr-2 text-gray-500 rounded-full" />
           <a
