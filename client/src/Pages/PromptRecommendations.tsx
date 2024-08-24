@@ -26,7 +26,8 @@ const PromptRecommendations = () => {
       "Classic rock anthems"
     ];
 
-    if (isWaiting) return;
+
+    if (isWaiting || prompt !== "") return;
 
     const currentPlaceholder = placeholders[currentPlaceholderIndex];
 
@@ -42,7 +43,8 @@ const PromptRecommendations = () => {
         setIsWaiting(false);
       }, 3000);
     }
-  }, [currentPlaceholderIndex, typingIndex, isWaiting]);
+
+  }, [currentPlaceholderIndex, typingIndex, isWaiting, prompt]);
 
   useEffect(() => {
     const typingInterval = setInterval(typeAndCyclePlaceholders, 100);
@@ -101,10 +103,16 @@ const PromptRecommendations = () => {
                 md:text-2xl
               "
             />
-            <span className="absolute text-2xl inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-gray-500">
-              {placeholderText}
-              <span className={`ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>|</span>
-            </span>
+
+
+
+
+            {prompt === "" && (
+              <span className="absolute text-2xl inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-gray-500">
+                {placeholderText}
+                <span className={`ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>|</span>
+              </span>
+            )}
           </div>
           <button type="submit" className="ml-4 p-4 bg-spotify-green rounded-lg w-full lg:w-64 mt-8 text-xl font-bold">
             Generate
@@ -152,5 +160,6 @@ const PromptRecommendations = () => {
     </div>
   );
 };
+
 
 export default PromptRecommendations;
