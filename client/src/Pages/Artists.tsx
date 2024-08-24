@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Play } from "lucide-react";
-import { getTopArtists } from "../requests"; // Ensure this function is defined in your requests file
+import { getTopArtists } from "../requests";
 
 const TopArtist = () => {
   const [topArtists, setTopArtists] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState("short_term");
   const [sortOption, setSortOption] = useState("default");
+  const [showScores, setShowScores] = useState(false);
 
   useEffect(() => {
     const fetchTopArtists = async () => {
@@ -15,7 +16,6 @@ const TopArtist = () => {
         const response = await getTopArtists(timeRange);
         let artists = response.data.items;
 
-        // Sort by popularity if the sort option is set to popularity
         if (sortOption === "popularity") {
           artists = artists.sort(
             (a: any, b: any) => b.popularity - a.popularity
@@ -39,6 +39,10 @@ const TopArtist = () => {
 
   const handleSortOptionChange = (option: string) => {
     setSortOption(option);
+  };
+
+  const handleShowScoresToggle = () => {
+    setShowScores(!showScores);
   };
 
   return (
@@ -93,6 +97,16 @@ const TopArtist = () => {
           >
             By Popularity
           </span>
+          <span
+            className={`hover:text-green-400 cursor-pointer ${
+              showScores
+                ? "text-spotify-green underline underline-offset-2"
+                : "text-gray-500"
+            }`}
+            onClick={handleShowScoresToggle}
+          >
+            Show Scores
+          </span>
         </div>
       </div>
 
@@ -109,6 +123,15 @@ const TopArtist = () => {
                 alt={artist.name}
                 className="w-full h-full rounded-full object-cover transition duration-300 ease-in-out group-hover:blur-sm"
               />
+              <div
+                className={`${
+                  showScores ? "opacity-100" : "opacity-0"
+                } absolute inset-0 animate ease-in-out duration-700 flex justify-center items-center`}
+              >
+                <h2 className="text-6xl font-bold text-white opacity-50 z-10">
+                  {`${artist.popularity}%`}
+                </h2>
+              </div>
               <a
                 href={`https://open.spotify.com/artist/${artist.id}`}
                 target="_blank"
@@ -118,10 +141,8 @@ const TopArtist = () => {
                 <Play className="w-12 h-12 text-white" />
               </a>
               <div className="flex flex-row mt-4 justify-center">
-                <h2 className="text-xl font-bold text-center opacity-0 group-hover:opacity-50 transition-opacity duration-300 absolute left-0">
-                  {sortOption === "popularity"
-                    ? `${artist.popularity}%`
-                    : `${index + 1}.`}
+                <h2 className="text-xl font-bold text-center opacity-0 group-hover:opacity-50 transition-opacity duration-300 absolute left-0 top-0">
+                    {`${index + 1}`}
                 </h2>
                 <h2 className="text-xl font-bold text-center px-6">
                   {artist.name}

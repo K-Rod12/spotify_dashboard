@@ -7,6 +7,7 @@ const TopTracks = () => {
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState("short_term");
   const [sortOption, setSortOption] = useState("default");
+  const [showScores, setShowScores] = useState(false);
 
   useEffect(() => {
     const fetchTopTracks = async () => {
@@ -36,6 +37,10 @@ const TopTracks = () => {
 
   const handleSortOptionChange = (option: string) => {
     setSortOption(option);
+  };
+
+  const handleShowScoresToggle = () => {
+    setShowScores(!showScores);
   };
 
   return (
@@ -77,10 +82,28 @@ const TopTracks = () => {
             <span className="text-white mx-2">|</span>
           </div>
           <span
-            className={`hover:text-green-400 cursor-pointer ${sortOption === "popularity" ? "text-spotify-green underline underline-offset-2" : "text-gray-500"}`}
-            onClick={() => handleSortOptionChange(sortOption === "default" ? "popularity" : "default")}
+            className={`hover:text-green-400 cursor-pointer ${
+              sortOption === "popularity"
+                ? "text-spotify-green underline underline-offset-2"
+                : "text-gray-500"
+            }`}
+            onClick={() =>
+              handleSortOptionChange(
+                sortOption === "default" ? "popularity" : "default"
+              )
+            }
           >
             By Popularity
+          </span>
+          <span
+            className={`hover:text-green-400 cursor-pointer ${
+              showScores
+                ? "text-spotify-green underline underline-offset-2"
+                : "text-gray-500"
+            }`}
+            onClick={handleShowScoresToggle}
+          >
+            Show Scores
           </span>
         </div>
       </div>
@@ -92,13 +115,22 @@ const TopTracks = () => {
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 w-full">
           {topTracks.map((track, index) => (
-            <div key={index} className="relative group mb-20 w-full">
+            <div key={index} className="relative group mb-20 ">
               <div className="relative w-full h-full">
                 <img
                   src={track.album.images[0]?.url}
                   alt={track.name}
                   className="w-full h-full rounded-full object-cover transition duration-300 ease-in-out group-hover:blur-sm group-hover:scale-105"
                 />
+                <div
+                  className={`${
+                    showScores ? "opacity-100" : "opacity-0"
+                  } absolute inset-0 animate ease-in-out duration-700 flex justify-center items-center`}
+                >
+                  <h2 className="text-6xl font-bold text-white opacity-50 z-10">
+                    {`${track.popularity}%`}
+                  </h2>
+                </div>
                 <a
                   href={`https://open.spotify.com/track/${track.id}`}
                   target="_blank"
@@ -109,11 +141,11 @@ const TopTracks = () => {
                 </a>
               </div>
 
-              <div className="mt-4 text-center justify-center">
-                <h2 className="text-xl font-bold opacity-0 group-hover:opacity-50 transition-opacity duration-300 absolute left-0">
-                  {sortOption === "popularity" ? `${track.popularity}%` : `${index + 1}.`}
+              <div className="my-4 text-center justify-center">
+                <h2 className="text-xl font-bold opacity-0 group-hover:opacity-50 transition-opacity duration-300 absolute left-0 top-0">
+                  {`${index + 1}`}
                 </h2>
-                <h2 className="text-xl font-bold text-center px-8">
+                <h2 className="lg:text-xl font-bold text-center px-2">
                   {track.name}
                 </h2>
                 <p className="text-gray-300 text-center">
