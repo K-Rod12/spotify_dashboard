@@ -2,7 +2,7 @@ import axios from "axios";
 // import { getHashParams } from '../utils';
 
 const api = process.env.REACT_APP_FUNCTIONS_API;
-console.log("API", api)
+
 export const getSongsFromPrompt = async (prompt: string) => {
   try {
     const response = await axios.post(`${api}/generatePlaylist`, {

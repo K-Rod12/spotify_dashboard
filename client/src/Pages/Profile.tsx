@@ -30,6 +30,7 @@ const Profile = ({
   });
   const [loading, setLoading] = useState(true); // Loading state
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
+  const [profileColor, setProfileColor] = useState("");
 
   const logout = useCallback(() => {
     console.log("Logging out...");
@@ -107,6 +108,9 @@ const Profile = ({
 
     window.addEventListener("resize", handleResize);
 
+    // Generate random color for profile picture background
+    setProfileColor(`#${Math.floor(Math.random() * 16777215).toString(16)}`);
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -138,11 +142,22 @@ const Profile = ({
     <div className="relative text-white p-1 pt-8 flex flex-col lg:flex-row h-screen">
       {/* Left section */}
       <div className="lg:w-2/6 flex flex-col items-center lg:fixed lg:top-20% lg:h-screen p-4">
-        <img
-          src={user?.images?.[1]?.url}
-          alt={user?.displayName}
-          className="w-44 h-44 lg:w-72 lg:h-72 rounded-full mb-4"
-        />
+        {user?.images?.[1]?.url ? (
+          <img
+            src={user.images[1].url}
+            alt={user?.displayName}
+            className="w-44 h-44 lg:w-72 lg:h-72 rounded-full mb-4"
+          />
+        ) : (
+          <div
+            className="w-44 h-44 lg:w-72 lg:h-72 rounded-full mb-4 flex items-center justify-center text-6xl font-bold"
+            style={{ backgroundColor: profileColor }}
+          >
+            <span className="text-white lg:text-9xl">
+              {user?.display_name ? user.display_name[0].toUpperCase() : ""}
+            </span>{" "}
+          </div>
+        )}
         <h1 className="text-4xl font-bold mb-2">{user?.displayName}</h1>
         <div className="flex flex-col justify-center items-center">
           <h2 className="font-bold text-4xl md:text-5xl text-gray-300 mb-4 text-center">
