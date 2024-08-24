@@ -17,15 +17,15 @@ const PromptRecommendations = () => {
   const [isWaiting, setIsWaiting] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
 
-  const placeholders = [
-    "The best music from the 90s",
-    "Upbeat songs for a workout",
-    "Relaxing jazz for a rainy day",
-    "Top hits from 2023",
-    "Classic rock anthems"
-  ];
-
   const typeAndCyclePlaceholders = useCallback(() => {
+    const placeholders = [
+      "The best music from the 90s",
+      "Upbeat songs for a workout",
+      "Relaxing jazz for a rainy day",
+      "Top hits from 2023",
+      "Classic rock anthems"
+    ];
+
     if (isWaiting) return;
 
     const currentPlaceholder = placeholders[currentPlaceholderIndex];
@@ -42,7 +42,7 @@ const PromptRecommendations = () => {
         setIsWaiting(false);
       }, 3000);
     }
-  }, [currentPlaceholderIndex, typingIndex, placeholders, isWaiting]);
+  }, [currentPlaceholderIndex, typingIndex, isWaiting]);
 
   useEffect(() => {
     const typingInterval = setInterval(typeAndCyclePlaceholders, 100);
