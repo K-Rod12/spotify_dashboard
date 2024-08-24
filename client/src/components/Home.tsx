@@ -25,7 +25,6 @@ const removeStaleLocalStorageItem = (key: string, expiryHours: number) => {
   }
 };
 
-
 function Home(setAccessToken: any) {
   const [currentPage, setCurrentPage] = useState("Profile");
   

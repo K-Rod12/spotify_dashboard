@@ -12,22 +12,47 @@ const PromptRecommendations = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [trackUris, setTrackUris] = useState<string[]>([]);
   const [placeholderText, setPlaceholderText] = useState("");
-  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [currentPlaceholderIndex, setCurrentPlaceholderIndex] = useState(0);
+  const [typingIndex, setTypingIndex] = useState(0);
+  const [isWaiting, setIsWaiting] = useState(false);
+  const [showCursor, setShowCursor] = useState(true);
 
-  const fullPlaceholder = "The best music from the 90s";
+  const placeholders = [
+    "The best music from the 90s",
+    "Upbeat songs for a workout",
+    "Relaxing jazz for a rainy day",
+    "Top hits from 2023",
+    "Classic rock anthems"
+  ];
 
-  const typeNextCharacter = useCallback(() => {
-    if (placeholderIndex < fullPlaceholder.length) {
-      setPlaceholderText(prevText => prevText + fullPlaceholder[placeholderIndex]);
-      setPlaceholderIndex(prevIndex => prevIndex + 1);
+  const typeAndCyclePlaceholders = useCallback(() => {
+    if (isWaiting) return;
+
+    const currentPlaceholder = placeholders[currentPlaceholderIndex];
+
+    if (typingIndex < currentPlaceholder.length) {
+      setPlaceholderText(prevText => prevText + currentPlaceholder[typingIndex]);
+      setTypingIndex(prevIndex => prevIndex + 1);
+    } else if (typingIndex === currentPlaceholder.length) {
+      setIsWaiting(true);
+      setTimeout(() => {
+        setPlaceholderText("");
+        setTypingIndex(0);
+        setCurrentPlaceholderIndex((prevIndex) => (prevIndex + 1) % placeholders.length);
+        setIsWaiting(false);
+      }, 3000);
     }
-  }, [placeholderIndex, fullPlaceholder]);
+  }, [currentPlaceholderIndex, typingIndex, placeholders, isWaiting]);
 
   useEffect(() => {
-    const typingInterval = setInterval(typeNextCharacter, 100);
+    const typingInterval = setInterval(typeAndCyclePlaceholders, 100);
+    const cursorInterval = setInterval(() => setShowCursor(prev => !prev), 530);
 
-    return () => clearInterval(typingInterval);
-  }, [typeNextCharacter]);
+    return () => {
+      clearInterval(typingInterval);
+      clearInterval(cursorInterval);
+    };
+  }, [typeAndCyclePlaceholders]);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -56,26 +81,32 @@ const PromptRecommendations = () => {
   return (
     <div className="text-white p-1 pt-8 flex flex-col flex-grow items-center justify-center h-full min-w-screen">
       <div className="flex-2 flex justify-center w-full pt-16">
-        <form onSubmit={handleSubmit} className="mb-5 text-center">
-          <input
-            type="text"
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            placeholder={placeholderText}
-            className="
-              bg-transparent
-              border-b
-              focus:outline-none
-              border-spotify-green
-              py-2
-              px-2
-              text-white
-              text-center
-              placeholder-gray-500
-              w-64
-            "
-          />
-          <button type="submit" className="ml-2 p-2 bg-spotify-green rounded-lg w-full lg:w-normal mt-5">
+        <form onSubmit={handleSubmit} className="mb-8 text-center">
+          <div className="relative inline-block">
+            <input
+              type="text"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              className="
+                bg-transparent
+                border-b-2
+                focus:outline-none
+                border-spotify-green
+                py-4
+                px-4
+                text-white
+                text-center
+                w-96
+                text-xl
+                md:text-2xl
+              "
+            />
+            <span className="absolute text-2xl inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-gray-500">
+              {placeholderText}
+              <span className={`ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>|</span>
+            </span>
+          </div>
+          <button type="submit" className="ml-4 p-4 bg-spotify-green rounded-lg w-full lg:w-64 mt-8 text-xl font-bold">
             Generate
           </button>
         </form>

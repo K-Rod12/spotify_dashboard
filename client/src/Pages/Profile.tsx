@@ -60,6 +60,7 @@ const Profile = ({
       const topTracksResponse = await getTopTracks("short_term");
       const topTracks = topTracksResponse.data.items.slice(0, 10);
       const seedTracks = topTracks.map((track: any) => track.id);
+      
       if (!recommendedTracks) {
         try {
           const recommendedTracksResponse = await getRecommendations(
