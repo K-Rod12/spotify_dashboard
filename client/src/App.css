@@ -63,3 +63,13 @@
     scrollbar-width: none;
   }
 }
+
+@keyframes speedUpShimmer {
+  0% { animation-duration: 2s; }
+  100% { animation-duration: 0.5s; }
+}
+
+.animate-loading-shimmer {
+  animation: loadingShimmer 2s infinite linear, speedUpShimmer 10s forwards;
+}
+

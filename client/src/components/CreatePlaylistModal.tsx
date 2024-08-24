@@ -122,7 +122,7 @@ const CreatePlaylistModal: React.FC<CreatePlaylistModalProps> = ({
               onClick={handleCreatePlaylist}
               className="w-full mb-4 p-2 rounded bg-green-500 hover:bg-green-600 transition duration-300"
             >
-              Create Playlist
+              Add playlist to Spotify
             </button>
           </>
         )}

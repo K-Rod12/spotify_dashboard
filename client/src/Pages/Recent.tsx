@@ -32,7 +32,7 @@ const Recent = () => {
   return (
     <div className="text-white p-1 pt-8 flex flex-col items-center min-h-screen">
       <h1 className="text-4xl font-bold m-5">Recently Played</h1>
-      <div className="w-full">
+      <div className="flex flex-col items-center w-full lg:w-4/5">
         {recentTracks.map((track, index) => (
           <TrackItem key={index} track={track.track} />
         ))}

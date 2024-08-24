@@ -14,10 +14,12 @@ const TopArtist = () => {
       try {
         const response = await getTopArtists(timeRange);
         let artists = response.data.items;
-        
+
         // Sort by popularity if the sort option is set to popularity
         if (sortOption === "popularity") {
-          artists = artists.sort((a: any, b: any) => b.popularity - a.popularity);
+          artists = artists.sort(
+            (a: any, b: any) => b.popularity - a.popularity
+          );
         }
 
         setTopArtists(artists);
@@ -40,24 +42,36 @@ const TopArtist = () => {
   };
 
   return (
-    <div className="text-white pt-8 flex flex-col items-center">
+    <div className="text-white p-1 pt-8 flex flex-col items-center">
       <div className="flex flex-col justify-between items-center w-full mb-8">
         <h1 className="text-4xl font-bold m-5">Top Artists</h1>
-        <div className="flex lg:space-x-4 text-center text-sm md:text-lg">
+        <div className="flex space-x-4 text-center text-sm md:text-lg">
           <span
-            className={`hover:text-white cursor-pointer ${timeRange === "short_term" ? "text-white underline underline-offset-2" : "text-gray-500"}`}
+            className={`hover:text-white cursor-pointer ${
+              timeRange === "short_term"
+                ? "text-white underline underline-offset-2"
+                : "text-gray-500"
+            }`}
             onClick={() => handleTimeRangeChange("short_term")}
           >
             Last 4 Weeks
           </span>
           <span
-            className={`hover:text-white cursor-pointer ${timeRange === "medium_term" ? "text-white underline underline-offset-2" : "text-gray-500"}`}
+            className={`hover:text-white cursor-pointer ${
+              timeRange === "medium_term"
+                ? "text-white underline underline-offset-2"
+                : "text-gray-500"
+            }`}
             onClick={() => handleTimeRangeChange("medium_term")}
           >
             Last 6 Months
           </span>
           <span
-            className={`hover:text-white cursor-pointer ${timeRange === "long_term" ? "text-white underline underline-offset-2" : "text-gray-500"}`}
+            className={`hover:text-white cursor-pointer ${
+              timeRange === "long_term"
+                ? "text-white underline underline-offset-2"
+                : "text-gray-500"
+            }`}
             onClick={() => handleTimeRangeChange("long_term")}
           >
             All Time
@@ -66,8 +80,16 @@ const TopArtist = () => {
             <span className="text-white mx-2">|</span>
           </div>
           <span
-            className={`hover:text-green-400 cursor-pointer ${sortOption === "popularity" ? "text-spotify-green underline underline-offset-2" : "text-gray-500"}`}
-            onClick={() => handleSortOptionChange(sortOption === "default" ? "popularity" : "default")}
+            className={`hover:text-green-400 cursor-pointer ${
+              sortOption === "popularity"
+                ? "text-spotify-green underline underline-offset-2"
+                : "text-gray-500"
+            }`}
+            onClick={() =>
+              handleSortOptionChange(
+                sortOption === "default" ? "popularity" : "default"
+              )
+            }
           >
             By Popularity
           </span>
@@ -97,7 +119,9 @@ const TopArtist = () => {
               </a>
               <div className="flex flex-row mt-4 justify-center">
                 <h2 className="text-xl font-bold text-center opacity-0 group-hover:opacity-50 transition-opacity duration-300 absolute left-0">
-                  {sortOption === "popularity" ? `${artist.popularity}%` : `${index + 1}.`}
+                  {sortOption === "popularity"
+                    ? `${artist.popularity}%`
+                    : `${index + 1}.`}
                 </h2>
                 <h2 className="text-xl font-bold text-center px-6">
                   {artist.name}

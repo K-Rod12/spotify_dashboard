@@ -16,13 +16,13 @@ const TrackItem: React.FC<TrackItemProps> = ({ key, track }) => {
         className="w-16 h-16 rounded-lg mr-4"
       />
       <div className="flex flex-col flex-grow">
-        <span className="text-sm sm:text-xl font-bold">
+        <span className="text-sm sm:text-xl font-bold line-clamp-2 overflow-hidden">
           {track.name}
         </span>
-        <span className="text-xs sm:text-sm text-gray-400">
+        <span className="text-xs sm:text-sm text-gray-400 line-clamp-1 overflow-hidden">
           {track.artists.map((artist: any) => artist.name).join(", ")}
         </span>
-        <span className="text-xs sm:text-sm text-gray-400">
+        <span className="text-xs sm:text-sm text-gray-400 line-clamp-1 overflow-hidden">
           {track.album.name}
         </span>
       </div>
