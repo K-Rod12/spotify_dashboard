@@ -19,13 +19,15 @@ const PromptRecommendations = () => {
   const [isButtonLoading, setIsButtonLoading] = useState(false);
 
   useEffect(() => {
-    const savedTracks = sessionStorage.getItem('generatedTracks');
+    const savedTracks = sessionStorage.getItem("generatedTracks");
     if (savedTracks) {
       const parsedTracks = JSON.parse(savedTracks);
       setGeneratedTracks(parsedTracks);
       setTrackUris(parsedTracks.map((track: any) => track.uri));
-      setPlaylistName(sessionStorage.getItem('playlistName') || '');
-      setPlaylistDescription(sessionStorage.getItem('playlistDescription') || '');
+      setPlaylistName(sessionStorage.getItem("playlistName") || "");
+      setPlaylistDescription(
+        sessionStorage.getItem("playlistDescription") || ""
+      );
     }
   }, []);
 
@@ -90,11 +92,17 @@ const PromptRecommendations = () => {
       setPlaylistDescription(response.playlistDescription);
       setGeneratedTracks(response.tracks);
       setTrackUris(response.tracks.map((track: any) => track.uri));
-      
+
       // Save to session storage
-      sessionStorage.setItem('generatedTracks', JSON.stringify(response.tracks));
-      sessionStorage.setItem('playlistName', response.playlistName);
-      sessionStorage.setItem('playlistDescription', response.playlistDescription);
+      sessionStorage.setItem(
+        "generatedTracks",
+        JSON.stringify(response.tracks)
+      );
+      sessionStorage.setItem("playlistName", response.playlistName);
+      sessionStorage.setItem(
+        "playlistDescription",
+        response.playlistDescription
+      );
     } catch (error) {
       console.error("Error fetching songs:", error);
     } finally {
@@ -162,7 +170,7 @@ const PromptRecommendations = () => {
           `}
         >
           <span className="relative z-10">
-            {isButtonLoading ? "Generating..." : "Generate"}
+            {isButtonLoading ? "Creating..." : "Create"}
           </span>
           {!isButtonLoading && (
             <div
