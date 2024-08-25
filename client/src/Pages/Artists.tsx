@@ -49,7 +49,7 @@ const TopArtist = () => {
     <div className="text-white p-1 pt-8 flex flex-col items-center">
       <div className="flex flex-col justify-between items-center w-full mb-8">
         <h1 className="text-4xl font-bold m-5">Top Artists</h1>
-        <div className="flex space-x-4 text-center text-sm md:text-lg">
+        <div className="flex space-x-2 md:space-x-4 text-center text-sm md:text-lg">
           <span
             className={`hover:text-white cursor-pointer ${
               timeRange === "short_term"

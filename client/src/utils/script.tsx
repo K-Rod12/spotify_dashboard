@@ -11,7 +11,7 @@ async function redirectToAuthCodeFlow() {
   params.append("response_type", "code");
   // params.append("redirect_uri", "https://spotify-metrics.netlify.app/callback");
   params.append("redirect_uri", "http://localhost:3000/callback");
-  params.append("scope", "user-read-private user-read-email user-top-read playlist-modify-public user-modify-playback-state user-read-playback-state user-follow-read user-read-recently-played");
+  params.append("scope", "user-top-read playlist-modify-public user-follow-read user-read-recently-played");
   params.append("code_challenge_method", "S256");
   params.append("code_challenge", challenge);
 
