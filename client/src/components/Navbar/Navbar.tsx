@@ -4,6 +4,8 @@ import { sections } from "./content";
 import SpotifyLogo from "../../assets/spotify-logo";
 import React from "react";
 import SparkleIcon from "../../assets/SparkleIcon";
+import LeftArrow from "../../assets/LeftArrow";
+import RightArrow from '../../assets/RightArrow';
 
 export type SectionId = (typeof sections)[number]["id"];
 
@@ -99,20 +101,7 @@ const Navbar = (props: NavbarProps) => {
               onClick={() => scrollNav("left")}
               className="fixed left-0 top-1/2 transform -translate-y-1/2 z-10 bg-transparent bg-opacity-50 p-1 rounded-full text-white"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
+              <LeftArrow />
             </button>
           )}
           <div
@@ -180,20 +169,7 @@ const Navbar = (props: NavbarProps) => {
               onClick={() => scrollNav("right")}
               className="fixed right-0 top-1/2 transform -translate-y-1/2 z-10 bg-transparent bg-opacity-50 p-1 rounded-full text-white"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
+              <RightArrow className="h-6 w-6" />
             </button>
           )}
         </div>
